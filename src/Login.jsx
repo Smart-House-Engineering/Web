@@ -1,10 +1,11 @@
 
 import { useState, useEffect } from 'react';
 import './login.css'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
-
+  const navigate = useNavigate();
   const [i, setI] = useState({
     email:'',
     password:''
@@ -30,6 +31,7 @@ export default function Login() {
       body: JSON.stringify(i),
     })).json();
     console.log(serverResponse)
+    navigate('/default-page')
     
     
   }
