@@ -23,18 +23,49 @@ export default function Login() {
 
   async function submit(event) {
     // prevent submit from doing a hard page reload
-    event.preventDefault();
+   event.preventDefault();
     //console.log(serverResponse)
-    let serverResponse = await (await fetch('http://localhost:5000/auth/login', {
+    let serverResponse =  await(await fetch('http://localhost:5000/auth/login', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(i),
-    })).json();
+    })).json()
+
+    /*
+    //The commented code consists of all the trials to retrieve the cookie
+    console.log(serverResponse)
+    const token = await serverResponse.text()
+
+    console.log(serverResponse.cookie)
+    console.log("login data", token)
+    const key = "jwtAuth"
+
+  localStorage.setItem(key, token)
+
+    
+    let data = await serverResponse.json()
+    console.log(serverResponse.headers.get('Authorization'))
+    console.log(data)
+
+     if (serverResponse.headers) {
+      const cookieHeader = serverResponse.headers.get('Set-Cookie');
+      
+      // Check if the 'Set-Cookie' header is present
+      if (cookieHeader) {
+        // Save the cookie to the browser
+        document.cookie = cookieHeader;
+      }
+    }*/
+    
+    
     console.log(serverResponse)
     navigate('/default-page')
     
     
   }
+
+  
+
 
   //On submit
   //set it to the object and then fetch from api to confirm. If it is correct (console.log), move on to the next
