@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Manjari');
+@import url('https://fonts.googleapis.com/css?family=Zilla Slab');
+
+
+/*body{
+    font-family: 'Manjari', sans-serif;}*/
+
+.hid{
+    display: block;
+    font-size: 1em;
+    margin: auto;
+    max-width: 950px;
+    
+}
+
+.hid form h2{
+ font-family: 'Zilla Slab', Arial Narrow Bold;
+ color: black;
+ font-weight: 900;
+ text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+form{
+    align-items: center;
+    width: 100%;
+}
+
+
+
+input{
+    display: block;
+    width: 300px;
+    margin: 25px;}
+
+
+input::placeholder{
+    font-family: 'Manjari', sans-serif;}
+
+ button:focus, input:focus{
+    border: 1px solid #3498db !important;
+    outline: none !important;
+}
+
+button{
+    width: 315px;
+    color: white;
+    background-color: rgb(80, 145, 181) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active{
+    background-color: rgb(163, 210, 235) !important;
+}
+
+button .text{
+    font-size: medium;
+}
+
+.wrong-input{
+margin-top: 50px;
+}
+
+.wrong-input {
+    font-family: 'Manjari', sans-serif;
+    margin-left: 20px;
+}
+
+.wrong-input p {
+    text-align: left;
+    font-size: small;
+
+}
+
+.wrong-input span {
+    color: #3498db;
+}
+
+
+
