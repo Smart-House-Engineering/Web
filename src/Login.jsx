@@ -23,7 +23,13 @@ export default function Login() {
   async function submit(event) {
     // prevent submit from doing a hard page reload
     event.preventDefault();
-    console.log(i)
+    //console.log(serverResponse)
+    let serverResponse = await (await fetch('http://localhost:5000/auth/login', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(i),
+    })).json();
+    console.log(serverResponse)
     
     
   }
