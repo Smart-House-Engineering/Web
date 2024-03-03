@@ -1,34 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
+
 export default function DefaultPage() {
+    const [sensors, setSensors] = useState({});
 
-  const [sensors, setSensors] = useState([]);
-  let id = "RaudaHome"
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(
+                "http://localhost:5000/api/modes/defaultMode",
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Credentials": true,
+                    },
+                    cookies: localStorage.getItem("SmartHouseToken"),
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.devices);
+                setSensors(data.devices);
+            } else {
+                console.error(
+                    `Failed to fetch data. Status: ${response.status}`
+                );
+            }
+        };
 
-  
-  // http://localhost:5000/api/modes/defaultMode
+        fetchData();
+    }, []);
 
-  useEffect(() => {
-    (async () => {
+    console.log("sensors", sensors);
 
-      setSensors(await (await (fetch('/api/modes/defaultMode', {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        //body: JSON.stringify(id),
-      })).json()));
-      //console.log(sensors)
-     
-    }) 
-    
-  }, [sensors]);
-  console.log(sensors)
-
-
-
-
-
-    
-    
-    return <div className="default">
-    <h1>I am the default page</h1>
-    </div>
-  }
+    return (
+        <div className="default">
+            <h1>I am the default page {sensors.fan}</h1>
+        </div>
+    );
+}
