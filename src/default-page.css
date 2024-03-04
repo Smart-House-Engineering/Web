@@ -1,4 +1,63 @@
-.caption{
-    background-color: aqua;
-    margin-top: 10px;
+body{
+    background-color: rgb(247, 247, 247);
+    
+
 }
+#root{
+    width: 100% ;
+    padding: 0;
+}
+
+.sidebar{
+    background-color: #ECECEC;
+        color: #3D7AAC;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        width: 150px !important;
+
+}
+
+.sidebar img{
+    width: 75%;
+}
+
+.boards{
+    background-color: #C4E2FB;
+    display:block;
+    width: 630px;
+    position: fixed;
+    top: 10px !important;
+    margin-bottom: 50px;
+    margin-left: 170px;
+    padding-bottom: 20px;
+    /*margin-top: 30px;*/
+    height: 330px;
+    border-radius: 10px;
+
+    /*display: flex;
+    flex-direction: row;*/
+
+}
+
+.sensors{
+    display: flex;
+    position: fixed;
+    height: 150px;
+    
+    /*margin-top: 200px;
+    display:flex;
+    flex-direction: row;
+    width: 600px;
+    position: fixed;
+    margin-top: 80px;*/
+    bottom: 10px;
+    margin-left: 170px;
+
+}
+
+
+
+
+

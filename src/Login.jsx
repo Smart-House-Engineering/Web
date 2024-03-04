@@ -21,7 +21,7 @@ export default function Login() {
         // prevent submit from doing a hard page reload
         event.preventDefault();
 
-        let serverResponse = await fetch("http://localhost:5000/auth/login", {
+        let serverResponse = await fetch("https://backend-ten-ruby.vercel.app/auth/login", {
             method: "POST",
             credentials: "include",
             headers: {
@@ -30,6 +30,7 @@ export default function Login() {
             },
             body: JSON.stringify(i),
         });
+        console.log(serverResponse)
 
         if (!serverResponse.ok) {
             throw new Error(`HTTP error! status: ${serverResponse.status}`);

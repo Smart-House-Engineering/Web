@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import "./default-page.css";
+import "./sensor.css";
 
 
 export default function Sensor(props) {
@@ -8,31 +8,25 @@ export default function Sensor(props) {
     const [like, setLike] = useState(value);
      
     console.log('Sensor Component Props:', props)
-    //let like = value
-    //console.log(sense)
-
-    //console.log(like)
-   /* function Switch () {
-
-
-    }*/
+    
 
     const Switch = async () => {
         try{ setLike(!like);
 
-            let device = { [keyName]: !like };
-            console.log(device)
-            console.log(typeof device)
+            let updatedDevices = { [keyName]: !like };
+            console.log(updatedDevices)
+            console.log(typeof updatedDevices)
 
             // Send the updated state to the backend
-            const serverResponse = await fetch("http://localhost:5000/api/modes/defaultMode", {
+            const serverResponse = await fetch("https://backend-ten-ruby.vercel.app/api/modes/defaultMode", {
               method: "PUT",
               credentials: "include",
               headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true,
               },
-              body: JSON.stringify(device), // Toggle the like state
+              cookies: localStorage.getItem("SmartHouseToken"),
+              body: JSON.stringify({"updatedDevices":updatedDevices}), // Toggle the like state
             });
       
             if (!serverResponse.ok) {
@@ -50,12 +44,13 @@ export default function Sensor(props) {
       };
 
     return(
-        <div className='caption' onClick = {Switch}>
+        <div className={`caption ${like ? 'on' : 'off'}`}   onClick = {Switch}>
             <div>{keyName}</div>
-            <div>{String(like)}</div>
-
-      
-      
+            <div>{like ? 'On' : 'Off'}</div>
+            <label className="switch">
+        <input type="checkbox" checked={like} onChange={Switch} />
+        <span className="slider round"></span>
+      </label> 
       </div>
     )
 }

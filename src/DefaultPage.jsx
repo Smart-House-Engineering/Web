@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Sensor from "./Sensor"; 
-
+import "./default-page.css";
 export default function DefaultPage() {
     const [sensors, setSensors] = useState([]);
 
@@ -9,7 +9,7 @@ export default function DefaultPage() {
       let isMounted = true;
         const fetchData = async () => {
             const response = await fetch(
-                "http://localhost:5000/api/modes/defaultMode",
+                "https://backend-ten-ruby.vercel.app/api/modes/defaultMode",
                 {
                     method: "GET",
                     credentials: "include",
@@ -41,15 +41,23 @@ export default function DefaultPage() {
    
 
     return (
+        
         <div className="default">
-            <h1>I am the default page {sensors.fan}</h1>
-            <div className="sidebar">Sidebar with h m l</div>
-      <div className="boards">div with members,board and profile</div>
-      <div className="sensors">Sensors
+                <div className="sidebar">Sidebar with h m l
+                <img src="/SEA-logo.png" alt="Logo of the app"></img>
+
+                </div>
+
+           
+      <div className="boards">
+      <h1>I am the default page {sensors.fan}</h1>
+        div with members,board and profile</div>
+      <div className="sensors">
       {
       Object.entries(sensors).map(([key, value]) => (
         <Sensor key={key} keyName={key} value={value} />
       ))}
+
       
 
 
