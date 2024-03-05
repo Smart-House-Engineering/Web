@@ -1,7 +1,4 @@
-body{
-  font-family: 'Manjari', sans-serif;
 
-}
 .caption {
     margin-top: 10px;
     cursor: pointer; /* Add this to indicate clickable */
@@ -69,11 +66,11 @@ body{
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #3D7AAC;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #3D7AAC;
   }
   
   input:checked + .slider:before {
