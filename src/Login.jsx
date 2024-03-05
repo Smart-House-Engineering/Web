@@ -72,7 +72,7 @@ export default function Login() {
             </form>
             <div className="wrong-input">
                 <p>
-                    Forgot <span>Email / Password</span>
+                    Forgot <span>Email / Password </span>?
                 </p>
                 <p>
                     Contact customer care at <span>eazylivinghq@gmail.com</span>

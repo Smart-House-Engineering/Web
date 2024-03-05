@@ -1,3 +1,7 @@
+body{
+  font-family: 'Manjari', sans-serif;
+
+}
 .caption {
     margin-top: 10px;
     cursor: pointer; /* Add this to indicate clickable */
@@ -22,8 +26,14 @@
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 34px;
+    height: 25px;
+    /*margin-left: 1px;*/
+    padding-top: 2px;
+    margin-right: 5px;
+    
   }
+
+
   
   .switch input {
     opacity: 0;
@@ -41,15 +51,15 @@
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-    border-radius: 10px;
+    border-radius: 13px;
 
   }
   
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -71,5 +81,41 @@
     -ms-transform: translateX(26px);
     transform: translateX(26px);
   }
+
+  .caption img{
+    width: 40%;
+    display: inline-block;
+
+  }
+
+  .Name-switch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+  }
+
+  .keyName{
+    display: flex; /* Use flexbox */
+    font-family: 'Manjari', sans-serif;
+    padding-bottom: 8px;}
+
+
+  .s-name{
+    font-size: 20px;
+    margin-top: 5px;
+    padding-left: 5px;}
+
+    .s-shell{
+      display: block;
+    }
+
+    .s-state{
+      display: flex;
+      padding-left: 5px;
+    }
+
+
 
   

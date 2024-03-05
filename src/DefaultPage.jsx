@@ -43,15 +43,34 @@ export default function DefaultPage() {
     return (
         
         <div className="default">
-                <div className="sidebar">Sidebar with h m l
+                <div className="sidebar">
                 <img src="/SEA-logo.png" alt="Logo of the app"></img>
+                <div className="home-icon">
+                <img src="/home-2.svg" alt="Home or default page"></img>
+                <p>Home</p></div>
+                <div className="home-icon">
+                <img src="/modes.svg" alt="Modes page"></img>
+                <p>Modes</p></div>
+                <div className="home-icon">
+                <img src="/microphone-2.svg" alt="Voice recognition"></img>
+                <p>Voice</p></div>
+                <div className="home-icon">
+                <img src="/logged.svg" alt="Voice recognition"></img>
+                <p>Logout</p></div>
+
 
                 </div>
 
            
-      <div className="boards">
-      <h1>I am the default page {sensors.fan}</h1>
-        div with members,board and profile</div>
+      <div className="boards-side"><div className="boards">
+      <h1>I am the default page </h1>
+        board </div>
+        <div className="side-board">
+            <div className="profile"> Profile</div>
+            <div className="members"> Members</div>
+            <div className="members"> Something</div>
+
+        </div></div>
       <div className="sensors">
       {
       Object.entries(sensors).map(([key, value]) => (

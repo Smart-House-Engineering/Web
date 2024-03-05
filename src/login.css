@@ -5,11 +5,20 @@
 /*body{
     font-family: 'Manjari', sans-serif;}*/
 
+#root{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
 .hid{
     display: block;
     font-size: 1em;
     margin: auto;
     max-width: 950px;
+    align-items: center !important;
+
     
 }
 
@@ -18,19 +27,39 @@
  color: black;
  font-weight: 900;
  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+ margin-top: 0;
+ margin-bottom: 50px;
+
 }
 
-form{
+/*form{
     align-items: center;
     width: 100%;
+}*/
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+form label {
+    margin-bottom: 0.5rem;
+}
 
-
-input{
-    display: block;
+form input, form select, form textarea {
     width: 300px;
-    margin: 25px;}
+    padding: 0.5rem;
+    margin-bottom: 0.9rem;
+
+    /*width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    margin-top: 5px;*/
+}
+
 
 
 input::placeholder{
@@ -42,10 +71,11 @@ input::placeholder{
 }
 
 button{
-    width: 315px;
+    width: 320px;
     color: white;
     background-color: rgb(80, 145, 181) !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
 }
 
 button:active{
@@ -56,13 +86,13 @@ button .text{
     font-size: medium;
 }
 
-.wrong-input{
-margin-top: 50px;
-}
+
 
 .wrong-input {
     font-family: 'Manjari', sans-serif;
-    margin-left: 20px;
+    margin-left: 320px;
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .wrong-input p {

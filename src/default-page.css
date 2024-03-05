@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Manjari');
+
+
 body{
     background-color: rgb(247, 247, 247);
     
@@ -20,8 +23,25 @@ body{
 }
 
 .sidebar img{
-    width: 75%;
+    width: 80%;
+    margin-top: 10px;
 }
+
+.home-icon{
+    margin-top: 15px;
+}
+
+
+.home-icon img{
+    width: 35%;
+    /*: #888888;*/
+}
+
+.home-icon p{
+    margin-top: 0;
+    font-family: 'Manjari', sans-serif;
+}
+
 
 .boards{
     background-color: #C4E2FB;
@@ -38,6 +58,41 @@ body{
 
     /*display: flex;
     flex-direction: row;*/
+
+}
+
+
+
+/**/
+.side-board{
+    display: block;
+    margin-left: 835px;
+    /*background-color: #C4E2FB;*/
+    margin-right: 30px;
+    height: 340px;
+    position: fixed;
+    top: 10px !important;
+    width: 300px;
+}
+
+.profile{
+    border-radius: 10px;
+    background-color: #C4E2FB;
+    border-radius: 10px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    height: 100px;
+
+
+}
+.members{
+    background-color: #C4E2FB;
+    border-radius: 10px;
+    height: 100px;
+    margin-top: 23px;
+
+
+
 
 }
 

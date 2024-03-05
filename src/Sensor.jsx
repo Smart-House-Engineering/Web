@@ -45,12 +45,13 @@ export default function Sensor(props) {
 
     return(
         <div className={`caption ${like ? 'on' : 'off'}`}   onClick = {Switch}>
-            <div>{keyName}</div>
-            <div>{like ? 'On' : 'Off'}</div>
-            <label className="switch">
+        <div className="Name-switch"><div className="keyName"><div className="s-name">{keyName}</div></div>
+        <label className="switch">
         <input type="checkbox" checked={like} onChange={Switch} />
         <span className="slider round"></span>
-      </label> 
+      </label></div>
+      <img src={`/${keyName.toLowerCase()}.svg`} alt={`${keyName} icon`}></img>
+      <div className="s-shell"><div className="s-state">{like ? 'On' : 'Off'}</div></div>
       </div>
     )
 }
