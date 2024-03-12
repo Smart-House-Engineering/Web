@@ -9,7 +9,7 @@ export default function DefaultPage() {
       let isMounted = true;
         const fetchData = async () => {
             const response = await fetch(
-                "https://backend-ten-ruby.vercel.app/api/modes/defaultMode",
+                " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
                 {
                     method: "GET",
                     credentials: "include",
@@ -64,11 +64,12 @@ export default function DefaultPage() {
            
       <div className="boards-side"><div className="boards">
       <h1>I am the default page </h1>
-        board </div>
+        Active: 
+        Inactive:  </div>
         <div className="side-board">
-            <div className="profile"> Profile</div>
+            <div className="profile">Date, weather and time</div>
+            <div className="members"> Profile image, welcome home Home Id. </div>
             <div className="members"> Members</div>
-            <div className="members"> Something</div>
 
         </div></div>
       <div className="sensors">

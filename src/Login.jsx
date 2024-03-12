@@ -14,14 +14,14 @@ export default function Login() {
     function setStateFromForm(event) {
         let element = event.target;
         setUI(element.name, element.value);
-        //console.log(i)
+        console.log(i)
     }
 
     async function submit(event) {
         // prevent submit from doing a hard page reload
         event.preventDefault();
 
-        let serverResponse = await fetch("https://backend-ten-ruby.vercel.app/auth/login", {
+        let serverResponse = await fetch("https://evanescent-beautiful-venus.glitch.me/auth/login", {
             method: "POST",
             credentials: "include",
             headers: {

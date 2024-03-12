@@ -18,7 +18,7 @@ export default function Sensor(props) {
             console.log(typeof updatedDevices)
 
             // Send the updated state to the backend
-            const serverResponse = await fetch("https://backend-ten-ruby.vercel.app/api/modes/defaultMode", {
+            const serverResponse = await fetch(" https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode", {
               method: "PUT",
               credentials: "include",
               headers: {

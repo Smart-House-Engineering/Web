@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://backend-ten-ruby.vercel.app',
+        target: 'https://evanescent-beautiful-venus.glitch.me',
         changeOrigin: true,
         secure: true
       }
