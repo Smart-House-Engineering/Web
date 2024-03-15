@@ -4,6 +4,8 @@
     cursor: pointer; /* Add this to indicate clickable */
 
     width: 160px;
+    display: inline-block;
+    height: 180px;
     
     border-radius: 5px;
     margin-right: 20px;
@@ -22,8 +24,8 @@
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 25px;
+    width: 50px;
+    height: 20px;
     /*margin-left: 1px;*/
     padding-top: 2px;
     margin-right: 5px;
@@ -55,8 +57,8 @@
   .slider:before {
     position: absolute;
     content: "";
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -80,12 +82,13 @@
   }
 
   .caption img{
-    width: 40%;
+    width: 60%;
     display: inline-block;
 
   }
 
   .Name-switch{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,7 +103,7 @@
 
 
   .s-name{
-    font-size: 20px;
+    font-size: 12px;
     margin-top: 5px;
     padding-left: 5px;}
 
@@ -111,6 +114,8 @@
     .s-state{
       display: flex;
       padding-left: 5px;
+      font-size: 12px;
+      font-weight: bold;
     }
 
 

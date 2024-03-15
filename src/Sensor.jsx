@@ -14,7 +14,7 @@ export default function Sensor(props) {
         try{ setLike(!like);
 
             let updatedDevices = { [keyName]: !like };
-            console.log(updatedDevices)
+            console.log('I am updated sensors',updatedDevices)
             console.log(typeof updatedDevices)
 
             // Send the updated state to the backend

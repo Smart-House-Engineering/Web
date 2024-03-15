@@ -62,7 +62,7 @@ export default function DefaultPage() {
                 </div>
 
            
-      <div className="boards-side"><div className="boards">
+      <div className="boards-sensors"><div className="boards-side"><div className="boards-container"><div className="boards">
       <h1>I am the default page </h1>
         Active: 
         Inactive:  </div>
@@ -71,17 +71,17 @@ export default function DefaultPage() {
             <div className="members"> Profile image, welcome home Home Id. </div>
             <div className="members"> Members</div>
 
-        </div></div>
-      <div className="sensors">
+        </div></div></div>
+      <div className="sensors-con"><div className="sensors">
       {
       Object.entries(sensors).map(([key, value]) => (
         <Sensor key={key} keyName={key} value={value} />
-      ))}
+      ))}</div>
 
       
 
 
-      </div>
+      </div></div>
         </div>
     );
 }
