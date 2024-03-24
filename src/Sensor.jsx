@@ -18,7 +18,7 @@ export default function Sensor(props) {
             console.log(typeof updatedDevices)
 
             // Send the updated state to the backend
-            const serverResponse = await fetch(" https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode", {
+            const serverResponse = await fetch(" https://evanescent-beautiful-venus.glitch.me/api/homeUser/defaultMode", {
               method: "PUT",
               credentials: "include",
               headers: {
@@ -43,6 +43,9 @@ export default function Sensor(props) {
         
       };
 
+      // Conditionally determine the text to display and the value for 'like'
+    const displayValue = keyName === "door" || keyName === "window" ? (like ? "Open" : "Closed") : (like ? "On" : "Off");
+
     return(
         <div className={`caption ${like ? 'on' : 'off'}`}   onClick = {Switch}>
         <div className="Name-switch"><div className="keyName"><div className="s-name">{keyName}</div></div>
@@ -51,7 +54,7 @@ export default function Sensor(props) {
         <span className="slider round"></span>
       </label></div>
       <img src={`/${keyName.toLowerCase()}.svg`} alt={`${keyName} icon`}></img>
-      <div className="s-shell"><div className="s-state">{like ? 'On' : 'Off'}</div></div>
+      <div className="s-shell"><div className="s-state">{displayValue}</div></div>
       </div>
     )
 }

@@ -3,9 +3,9 @@
     margin-top: 10px;
     cursor: pointer; /* Add this to indicate clickable */
 
-    width: 160px;
+    width: 140px;
     display: inline-block;
-    height: 180px;
+    height: 110px;
     
     border-radius: 5px;
     margin-right: 20px;
@@ -18,14 +18,14 @@
   }
   
   .off {
-    background-color: white; /* Choose your desired color for 'Off' state */
+    background-color: #fdfbf9; /* Choose your desired color for 'Off' state */
   }
 
   .switch {
     position: relative;
     display: inline-block;
-    width: 50px;
-    height: 20px;
+    width: 48px;
+    height: 19px;
     /*margin-left: 1px;*/
     padding-top: 2px;
     margin-right: 5px;
@@ -82,7 +82,7 @@
   }
 
   .caption img{
-    width: 60%;
+    width: 30%;
     display: inline-block;
 
   }
@@ -99,7 +99,16 @@
   .keyName{
     display: flex; /* Use flexbox */
     font-family: 'Manjari', sans-serif;
-    padding-bottom: 8px;}
+    padding-bottom: 8px;
+    font-weight: bold;
+    color: #213547;
+    
+    /*#3D7AAC;
+    #ac5000
+    #275275
+    #154a76
+    */
+  }
 
 
   .s-name{
@@ -116,6 +125,8 @@
       padding-left: 5px;
       font-size: 12px;
       font-weight: bold;
+      color: #ac5000;
+      /*color: #275275;*/
     }
 
 
