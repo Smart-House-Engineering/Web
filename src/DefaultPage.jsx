@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import Sensor from "./Sensor"; 
+import SideBoard from "./Sideboard"; 
+
 import "./default-page.css";
+import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
+
 export default function DefaultPage() {
     const [sensors, setSensors] = useState([]);
 
@@ -70,12 +75,10 @@ export default function DefaultPage() {
       ))}</div>
       </div>
 
-        <div className="side-board">
-            <div className="profile">Date, weather and time</div>
-            <div className="members"> Profile image, welcome home Home Id. </div>
-            <div className="members"> Members</div>
-
-        </div></div></div>
+      {/*sideboard*/ }
+      <SideBoard/>
+        
+        </div></div>
       </div>
         </div>
     );
