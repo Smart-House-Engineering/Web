@@ -88,7 +88,7 @@ body{
     font-family:'Manjari', sans-serif;;
 }
 
-.members{
+.progress-css{
     border-radius: 10px;
     background-color: #e6f0f9;
     border-radius: 10px;
@@ -127,14 +127,19 @@ padding-top: 20px;
 }
 
 
-/*
+
 .profile{
     border-radius: 10px;
-    background-color: #C4E2FB;
+    /*background-color: #C4E2FB;*/
+    color: #3D7AAC;
+
+    background-color: #e6f0f9;
     border-radius: 10px;
     margin-top: 2px;
     margin-bottom: 10px;
     height: 100px;
+    box-shadow:  1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+
 
 
 }
@@ -167,12 +172,12 @@ padding-top: 20px;
     font-size: 16px;
     padding-right: 2px;
 }
-*/
+
 
 
 /*background-color: #dbebf8;*/
 
-*.profile{
+/*.profile{
     background-color: #e6f0f9;
 
     border-radius: 10px;
