@@ -6,7 +6,9 @@ import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 
 
 
-export default function SideBoard() {
+export default function SideBoard(props) {
+    let { Val,setV} = props;
+
     const [currentDateTime, setCurrentDateTime] = useState(getCurrentDateTime());
     const [weatherData, setWeatherData] = useState(null);
     const [userData, setUserData] = useState(null);
@@ -102,7 +104,7 @@ return(<div className="side-board">
                         </div>
                     )} </div>
                    
-            <ProgressBar/> 
+            <ProgressBar {...{Val, setV}}/> 
             
             <div className="membered"> 
             <div className="member-title">Members</div>

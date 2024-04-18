@@ -7,6 +7,8 @@ import {useAutoKeys} from 'react-easier';
 import './App.css'
 import Login from './Login';
 import DefaultPage from './DefaultPage'
+import ExternalPage from './ExternalPage'
+
 
 
 
@@ -21,6 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login/>}></Route>
         <Route path="/default-page" element={<DefaultPage/>}></Route>
+        <Route path="/external-page" element={<ExternalPage/>}></Route>
+
       </Routes>
       
       </div>  

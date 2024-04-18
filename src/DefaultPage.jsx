@@ -1,13 +1,22 @@
 import { useState, useEffect } from "react";
 import Sensor from "./Sensor"; 
 import SideBoard from "./Sideboard"; 
-
+import { useNavigate } from "react-router-dom";
 import "./default-page.css";
 import 'react-circular-progressbar/dist/styles.css';
-import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
+
+
+
 
 export default function DefaultPage() {
     const [sensors, setSensors] = useState([]);
+    const navigate = useNavigate()
+
+    const [Val, setVal] = useState({
+        idValue:0
+      });
+  
+      const setV = (key, value) => setVal({ ...Val, [key]: value });
 
     useEffect(() => {
 
@@ -26,6 +35,8 @@ export default function DefaultPage() {
                 }
             );
             if (response.ok) {
+
+                
                 const data = await response.json();
                 console.log(data.devices);
                 setSensors(data.devices);
@@ -42,6 +53,11 @@ export default function DefaultPage() {
     },[]);
 
     console.log("sensors", sensors);
+    const logout = async () => {
+        navigate("/");
+
+    }
+
     
    
 
@@ -59,8 +75,8 @@ export default function DefaultPage() {
                 <div className="home-icon">
                 <img src="/microphone-2.svg" alt="Voice recognition"></img>
                 <p>Voice</p></div>
-                <div className="home-icon">
-                <img src="/logged.svg" alt="Voice recognition"></img>
+                <div className="home-icon"  onClick = {logout}>
+                <img src="/logged.svg" alt="Logout"></img>
                 <p>Logout</p></div>
 
 
@@ -71,12 +87,12 @@ export default function DefaultPage() {
       <div className="sensors-con"><div className="sensors">
       {
       Object.entries(sensors).map(([key, value]) => (
-        <Sensor key={key} keyName={key} value={value} />
+        <Sensor key={key} keyName={key} value={value} Val={Val} setV={setV}/>
       ))}</div>
       </div>
 
       {/*sideboard*/ }
-      <SideBoard/>
+      <SideBoard Val={Val} setV={setV}/>
         
         </div></div>
       </div>

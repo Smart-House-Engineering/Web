@@ -73,7 +73,7 @@ input::placeholder{
 button{
     width: 320px;
     color: white;
-    background-color: rgb(80, 145, 181) !important;
+    background-color: #5091b5 !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-top: 20px;
 }

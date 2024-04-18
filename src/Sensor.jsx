@@ -4,8 +4,9 @@ import "./sensor.css";
 
 export default function Sensor(props) {
 
-    let { keyName, value} = props;
+    let { keyName, value,Val,setV} = props;
     const [like, setLike] = useState(value);
+
      
     console.log('Sensor Component Props:', props)
     
@@ -34,7 +35,30 @@ export default function Sensor(props) {
             }
       
             const response = await serverResponse.json();
+            const update = response.updatedHome.devices
+
+            
+
+            console.log("Response from update", update);
             console.log("Response from server", response);
+            console.log("Response from update", update);
+
+            let trueCount = 0;
+
+            for (const key in update) {
+              if (update.hasOwnProperty(key)) {
+                if (update[key] === true || update[key] === 1) {
+                  trueCount++;
+                }
+              }
+            }
+
+            setV('idValue',Val.idValue = trueCount)
+            console.log("Response from true", trueCount);
+
+            console.log("Response from Val", Val);
+
+
           } catch (error) {
             console.error("Error:", error.message);
           }
@@ -43,12 +67,12 @@ export default function Sensor(props) {
         
       };
 
-      // Conditionally determine the text to display and the value for 'like'
+     
     const displayValue = keyName === "door" || keyName === "window" ? (like ? "Open" : "Closed") : (like ? "On" : "Off");
 
     return(
         <div className={`caption ${like ? 'on' : 'off'}`}   onClick = {Switch}>
-        <div className="Name-switch"><div className="keyName"><div className="s-name">{keyName === "servo1" ? "Door" : keyName === "servo2" ? "Window" : keyName}</div></div>
+        <div className="Name-switch"><div className="keyName"><div className="s-name">{keyName}</div></div>
         <label className="switch">
         <input type="checkbox" checked={like} onChange={Switch} />
         <span className="slider round"></span>

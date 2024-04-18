@@ -5,9 +5,10 @@ import 'react-circular-progressbar/dist/styles.css';
 
 
 
-export default function ProgressBar() {
+export default function ProgressBar(props) {
 
-    const percentage = 70
+  let { Val,setV} = props;
+  const percentage = Val.idValue
 
 
 
@@ -26,7 +27,8 @@ return(<div className="progress-css"><div className="bar-title">CURRENTLY ACTIVE
             <div  className="progress-con" style={{ width: 150, height: 150 }}>
             <CircularProgressbar
   value={percentage}
-  text={`${percentage/10} devices`}
+  maxValue={16}
+  text={`${percentage} devices`}
   styles={buildStyles({
     // Rotation of path and trail, in number of turns (0-1)
     rotation: 0.25,
