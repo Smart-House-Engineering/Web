@@ -13,16 +13,6 @@ export default function ProgressBar(props) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 return(<div className="progress-css"><div className="bar-title">CURRENTLY ACTIVE</div>
             <div  className="progress-con" style={{ width: 150, height: 150 }}>
             <CircularProgressbar

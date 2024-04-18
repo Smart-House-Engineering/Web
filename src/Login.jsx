@@ -31,6 +31,7 @@ export default function Login() {
             body: JSON.stringify(i),
         });
         console.log(serverResponse)
+        console.log(serverResponse)
 
         if (!serverResponse.ok) {
             throw new Error(`HTTP error! status: ${serverResponse.status}`);
@@ -38,6 +39,26 @@ export default function Login() {
 
         const reponse = await serverResponse.json();
         console.log("reponse", reponse);
+        // Assuming you have stored your JWT token in localStorage or sessionStorage
+        const token = "";
+        
+        //const token = localStorage.getItem("SmartHouseToken"); // Retrieve the JWT token
+        console.log("token", token);
+
+
+
+        if (token) {
+        // Decode the JWT token
+        const decodedToken = jwt_decode(token);
+
+        // Access the user role from the decoded token
+        const userRole = decodedToken.user.role; // Assuming 'role' is the claim containing the user role
+
+        // Now you can use the user role in your React components as needed
+        console.log("User Role:", userRole);
+        } else {
+        console.log("No token found");
+        }
         navigate("/default-page");
     }
 

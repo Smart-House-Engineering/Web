@@ -4,6 +4,8 @@ import SideBoard from "./Sideboard";
 import { useNavigate } from "react-router-dom";
 import "./default-page.css";
 import 'react-circular-progressbar/dist/styles.css';
+//import jwt_decode from "jwt-decode";
+
 
 
 
@@ -34,12 +36,12 @@ export default function DefaultPage() {
                     cookies: localStorage.getItem("SmartHouseToken"),
                 }
             );
-            if (response.ok) {
-
-                
-                const data = await response.json();
+            if (response.ok) {       
+               const data = await response.json();
                 console.log(data.devices);
                 setSensors(data.devices);
+
+                
             } else {
                 console.error(
                     `Failed to fetch data. Status: ${response.status}`
@@ -52,7 +54,24 @@ export default function DefaultPage() {
 
     },[]);
 
-    console.log("sensors", sensors);
+    useEffect(() => {
+        let trueCount = 0;
+
+        for (const key in sensors) {
+        if (sensors.hasOwnProperty(key)) {
+            if (sensors[key] === true || sensors[key] === 1) {
+            trueCount++;
+            }
+        }
+        }
+        console
+
+    setV('idValue',Val.idValue = trueCount)
+    console.log("sensors", trueCount);
+
+
+    }, [sensors]);
+
     const logout = async () => {
         navigate("/");
 
