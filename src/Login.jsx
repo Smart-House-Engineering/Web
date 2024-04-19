@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "./helperFunctions/getCookie.js";
+import { jwtDecode } from "jwt-decode";
+import "core-js/stable/atob";
 import "./login.css";
 
 export default function Login() {
@@ -14,24 +17,26 @@ export default function Login() {
     function setStateFromForm(event) {
         let element = event.target;
         setUI(element.name, element.value);
-        console.log(i)
+        console.log(i);
     }
 
     async function submit(event) {
         // prevent submit from doing a hard page reload
         event.preventDefault();
 
-        let serverResponse = await fetch("https://evanescent-beautiful-venus.glitch.me/auth/login", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Credentials": true,
-            },
-            body: JSON.stringify(i),
-        });
-        console.log(serverResponse)
-        console.log(serverResponse)
+        let serverResponse = await fetch(
+            "https://evanescent-beautiful-venus.glitch.me/auth/login",
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                body: JSON.stringify(i),
+            }
+        );
+        console.log(serverResponse);
 
         if (!serverResponse.ok) {
             throw new Error(`HTTP error! status: ${serverResponse.status}`);
@@ -39,27 +44,19 @@ export default function Login() {
 
         const reponse = await serverResponse.json();
         console.log("reponse", reponse);
-        // Assuming you have stored your JWT token in localStorage or sessionStorage
-        const token = "";
-        
-        //const token = localStorage.getItem("SmartHouseToken"); // Retrieve the JWT token
-        console.log("token", token);
 
-
+        const token = getCookie("SmartHouseToken");
 
         if (token) {
-        // Decode the JWT token
-        const decodedToken = jwt_decode(token);
-
-        // Access the user role from the decoded token
-        const userRole = decodedToken.user.role; // Assuming 'role' is the claim containing the user role
-
-        // Now you can use the user role in your React components as needed
-        console.log("User Role:", userRole);
+            // Decode the JWT token
+            const decodedToken = jwtDecode(token);
+            const userRole = decodedToken.user.role;
+            console.log("User Role:", userRole);
+            navigate("/default-page");
         } else {
-        console.log("No token found");
+            console.log("No token found");
+            navigate("/");
         }
-        navigate("/default-page");
     }
 
     //On submit
