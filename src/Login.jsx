@@ -21,15 +21,18 @@ export default function Login() {
     // prevent submit from doing a hard page reload
     event.preventDefault();
 
-    let serverResponse = await fetch("http://localhost:8000/auth/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-      body: JSON.stringify(i),
-    });
+    let serverResponse = await fetch(
+      "https://evanescent-beautiful-venus.glitch.me/auth/login",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify(i),
+      }
+    );
     console.log("the response", serverResponse);
 
     if (!serverResponse.ok) {

@@ -8,8 +8,6 @@ import "react-circular-progressbar/dist/styles.css";
 
 export default function DefaultPage() {
   const [sensors, setSensors] = useState([]);
-  const navigate = useNavigate();
-
   const [Val, setVal] = useState({
     idValue: 0,
   });
@@ -50,7 +48,6 @@ export default function DefaultPage() {
 
   useEffect(() => {
     let trueCount = 0;
-
     for (const key in sensors) {
       if (sensors.hasOwnProperty(key)) {
         if (sensors[key] === true || sensors[key] === 1) {
@@ -59,7 +56,6 @@ export default function DefaultPage() {
       }
     }
     console;
-
     setV("idValue", (Val.idValue = trueCount));
     console.log("sensors", trueCount);
   }, [sensors]);
@@ -72,51 +68,24 @@ export default function DefaultPage() {
   };
 
   return (
-    <div className="default">
-      <div className="sidebar">
-        <img src="/SEA-logo.png" alt="Logo of the app"></img>
-        <div className="home-icon">
-          <img src="/home-2.svg" alt="Home or default page"></img>
-          <p>Home</p>
-        </div>
-        <div className="home-icon">
-          <img src="/modes.svg" alt="Modes page"></img>
-          <p>Modes</p>
-        </div>
-        <div className="home-icon">
-          <img src="/microphone-2.svg" alt="Voice recognition"></img>
-          <p>Voice</p>
-        </div>
-        <div className="home-icon" onClick={addUser}>
-          <img src="/logged.svg" alt="Logout"></img>
-          <p> Add user</p>
-        </div>
-        <div className="home-icon" onClick={logout}>
-          <img src="/logged.svg" alt="Logout"></img>
-          <p>Logout</p>
-        </div>
-      </div>
-
-      <div className="boards-sensors">
-        <div className="boards-side">
-          <div className="boards-container">
-            <div className="sensors-con">
-              <div className="sensors">
-                {Object.entries(sensors).map(([key, value]) => (
-                  <Sensor
-                    key={key}
-                    keyName={key}
-                    value={value}
-                    Val={Val}
-                    setV={setV}
-                  />
-                ))}
-              </div>
+    <div className="boards-sensors">
+      <div className="boards-side">
+        <div className="boards-container">
+          <div className="sensors-con">
+            <div className="sensors">
+              {Object.entries(sensors).map(([key, value]) => (
+                <Sensor
+                  key={key}
+                  keyName={key}
+                  value={value}
+                  Val={Val}
+                  setV={setV}
+                />
+              ))}
             </div>
-
-            {/*sideboard*/}
-            <SideBoard Val={Val} setV={setV} />
           </div>
+          {/*sideboard*/}
+          <SideBoard Val={Val} setV={setV} />
         </div>
       </div>
     </div>
