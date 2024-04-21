@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css?family=Manjari");
+@import url("https://fonts.googleapis.com/css?family=Zilla Slab");
+
+/*body{
+    font-family: 'Manjari', sans-serif;}*/
+
+#root {
+  max-width: 80rem; /* 1280px / 16px = 80rem */
+  margin: 0 auto;
+  padding: 2rem; /* 32px / 16px = 2rem */
+  text-align: center;
+}
+
+.hid {
+  display: block;
+  font-size: 1em; /* 1em is equivalent to the font size of the element */
+  margin: auto;
+  max-width: 59.375rem; /* 950px / 16px = 59.375rem */
+  align-items: center !important;
+}
+
+.hid form h2 {
+  font-family: "Zilla Slab", Arial Narrow Bold;
+  color: black;
+  font-weight: 900;
+  text-shadow: 0.0625rem 0.0625rem 0.0625rem rgba(0, 0, 0, 0.2); /* 1px / 16px = 0.0625rem */
+  margin-top: 0;
+  margin-bottom: 3.125rem; /* 50px / 16px = 3.125rem */
+}
+
+/*form{
+    align-items: center;
+    width: 100%;
+}*/
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form label {
+  margin-bottom: 0.5rem; /* Same as before since it's already in rem */
+}
+
+form input,
+form select,
+form textarea {
+  width: 18.75rem; /* 300px / 16px = 18.75rem */
+  padding: 0.5rem; /* 8px / 16px = 0.5rem */
+  margin-bottom: 0.9rem; /* Same as before since it's already in rem */
+
+  /*width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    margin-top: 5px;*/
+}
+
+input::placeholder {
+  font-family: "Manjari", sans-serif;
+}
+
+button:focus,
+input:focus {
+  border: 0.0625rem solid #3498db !important; /* 1px / 16px = 0.0625rem */
+  outline: none !important;
+}
+
+button {
+  width: 20rem; /* 320px / 16px = 20rem */
+  color: white;
+  background-color: #5091b5 !important;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3); /* 4px / 16px = 0.25rem, 8px / 16px = 0.5rem */
+  margin-top: 1.25rem; /* 20px / 16px = 1.25rem */
+}
+
+button:active {
+  background-color: rgb(163, 210, 235) !important;
+}
+
+button .text {
+  font-size: medium; /* Unchanged, depends on user agent or custom styles if set */
+}
+
+.wrong-input {
+  font-family: "Manjari", sans-serif;
+  margin-left: 20rem; /* 320px / 16px = 20rem */
+  margin-top: 3.75rem; /* 60px / 16px = 3.75rem */
+  margin-bottom: 1.875rem; /* 30px / 16px = 1.875rem */
+}
+
+.wrong-input p {
+  text-align: left;
+  font-size: small; /* Unchanged, depends on user agent or custom styles if set */
+}
+
+.wrong-input span {
+  color: #3498db;
+}
