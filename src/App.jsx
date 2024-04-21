@@ -8,7 +8,7 @@ import "./App.css";
 import Login from "./Login";
 import DefaultPage from "./DefaultPage";
 import ExternalPage from "./ExternalPage";
-import AddUser from "./addUser";
+import AddUser from "./pages/addUser";
 
 function App() {
   // const [count, setCount] = useState(0)

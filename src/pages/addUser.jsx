@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import "./addUser.css";
+import "../style/addUser.css";
+import { getCookie } from "../helperFunctions/getCookie";
 
 function AddUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "", role: "" });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    role: "",
+    response: "",
+  });
 
   const validateEmail = (email) => {
     if (!email) {
@@ -24,12 +30,14 @@ function AddUser() {
     }
     return "";
   };
+
   const validateRole = (role) => {
     if (role === "") {
       return "Role is required.";
     }
     return "";
   };
+
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
@@ -49,10 +57,10 @@ function AddUser() {
   const submit = (event) => {
     event.preventDefault();
 
-    // Validate fields on submit
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
     const roleError = validateRole(role);
+
     if (emailError || passwordError || roleError) {
       setErrors({
         email: emailError,
@@ -62,22 +70,43 @@ function AddUser() {
       return; // Stop the form from submitting
     }
 
-    console.log("Submitting", { email, password, role });
+    const token = getCookie("SmartHouseToken");
+    console.log("cookies", localStorage.getItem("SmartHouseToken"));
+    if (token) {
+      console.log(" the Token:", token); // Should log the actual token if present
 
-    try {
-      fetch("https://evanescent-beautiful-venus.glitch.me/api/owner/addUser/", {
+      fetch("http://localhost:8000/api/owner/addUser/", {
         method: "POST",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           newUserEmail: email,
           newUserPassword: password,
           newUserRole: role,
         }),
-        headers: { "Content-Type": "application/json" },
+        cookies: token,
       })
         .then((response) => response.json())
-        .then((data) => console.log("response", data));
-    } catch (error) {
-      console.error(error);
+        .then((res) => {
+          console.log("Response:", res);
+          if (res.message == "TENANT account created!") {
+            setEmail("");
+            setRole("");
+            setPassword("");
+            setErrors({ ...errors, response: "" });
+          } else {
+            setErrors({ ...errors, response: res.message });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setErrors({ ...error, response: res.message });
+        });
+    } else {
+      console.log("Token not found");
     }
   };
 
@@ -85,11 +114,11 @@ function AddUser() {
     <div className="hid">
       <form onSubmit={submit}>
         <img src="/SEA-logo.png" alt="Logo of the app"></img>
-        <h2>add new user </h2>
+        <h2>Add New User</h2>
         <input
           type="email"
           required
-          placeholder="email"
+          placeholder="Email"
           maxLength="50"
           name="email"
           value={email}
@@ -111,6 +140,7 @@ function AddUser() {
           <option value="">Select Role</option>
           <option value="TENANT">Tenant</option>
         </select>
+        {errors.response && <div className="error">{errors.response}</div>}
         <button type="submit">Add User</button>
       </form>
     </div>

@@ -30,19 +30,18 @@ export default function Login() {
       },
       body: JSON.stringify(i),
     });
-    console.log(serverResponse);
-    console.log(serverResponse);
+    console.log("the response", serverResponse);
 
     if (!serverResponse.ok) {
       throw new Error(`HTTP error! status: ${serverResponse.status}`);
     }
 
     const reponse = await serverResponse.json();
-    console.log("reponse", reponse);
+
     // Assuming you have stored your JWT token in localStorage or sessionStorage
 
     const token = localStorage.getItem("SmartHouseToken"); // Retrieve the JWT token
-    console.log("token", token);
+    console.log("the login token=", token);
 
     if (token) {
       // Decode the JWT token
