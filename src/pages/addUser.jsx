@@ -75,7 +75,7 @@ function AddUser() {
     if (token) {
       console.log(" the Token:", token); // Should log the actual token if present
 
-      fetch("http://localhost:8000/api/owner/addUser/", {
+      fetch("https://evanescent-beautiful-venus.glitch.me/api/owner/addUser/", {
         method: "POST",
         credentials: "include",
         headers: {
