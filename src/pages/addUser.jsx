@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../style/addUser.css";
-import { getCookie } from "../helperFunctions/getCookie";
 
 function AddUser() {
   const [email, setEmail] = useState("");
@@ -70,44 +69,35 @@ function AddUser() {
       return; // Stop the form from submitting
     }
 
-    const token = getCookie("SmartHouseToken");
-    console.log("cookies", token);
-    if (token) {
-      console.log(" the Token:", token); // Should log the actual token if present
-
-      fetch("https://evanescent-beautiful-venus.glitch.me/api/owner/addUser/", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          newUserEmail: email,
-          newUserPassword: password,
-          newUserRole: role,
-        }),
-        cookies: token,
+    fetch("https://evanescent-beautiful-venus.glitch.me/api/owner/addUser/", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        newUserEmail: email,
+        newUserPassword: password,
+        newUserRole: role,
+      }),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        console.log("Response:", res);
+        if (res.message == "TENANT account created!") {
+          setEmail("");
+          setRole("");
+          setPassword("");
+          setErrors({ ...errors, response: "" });
+        } else {
+          setErrors({ ...errors, response: res.message });
+          setErrors({ ...errors, response: res.message });
+        }
       })
-        .then((response) => response.json())
-        .then((res) => {
-          console.log("Response:", res);
-          if (res.message == "TENANT account created!") {
-            setEmail("");
-            setRole("");
-            setPassword("");
-            setErrors({ ...errors, response: "" });
-          } else {
-            setErrors({ ...errors, response: res.message });
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setErrors({ ...error, response: res.message });
-        });
-    } else {
-      console.log("Token not found");
-    }
+      .catch((error) => {
+        console.error("Error:", error);
+        setErrors({ ...error, response: res.message });
+      });
   };
 
   return (
