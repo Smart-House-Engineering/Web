@@ -22,7 +22,6 @@ export default function Login() {
 
         let serverResponse = await fetch(
             "https://evanescent-beautiful-venus.glitch.me/auth/login",
-            // "http://localhost:5000/auth/login",
             {
                 method: "POST",
                 credentials: "include",
