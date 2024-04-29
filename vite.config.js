@@ -7,10 +7,6 @@ export default defineConfig(
     revc_({
         plugins: [react()],
         server: {
-            https: {
-                key: "./eazyliving-privateKey.key",
-                cert: "./eazyliving.crt",
-            },
             proxy: {
                 "/api": {
                     target: "https://evanescent-beautiful-venus.glitch.me",
