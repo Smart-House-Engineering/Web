@@ -99,3 +99,6 @@ button .text {
 .wrong-input span {
   color: #3498db;
 }
+.error {
+  color: red;
+}
