@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "./helperFunctions/getCookie.js";
-import { jwtDecode } from "jwt-decode";
-import "core-js/stable/atob";
 import "./login.css";
 
 export default function Login() {
@@ -21,7 +18,6 @@ export default function Login() {
     }
 
     async function submit(event) {
-        // prevent submit from doing a hard page reload
         event.preventDefault();
 
         let serverResponse = await fetch(
@@ -33,28 +29,38 @@ export default function Login() {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Credentials": true,
                 },
+                mode: "cors",
                 body: JSON.stringify(i),
             }
         );
-        console.log(serverResponse);
 
+        console.log(serverResponse);
         if (!serverResponse.ok) {
             throw new Error(`HTTP error! status: ${serverResponse.status}`);
         }
 
-        const reponse = await serverResponse.json();
-        console.log("reponse", reponse);
+        let response = await fetch(
+            "https://evanescent-beautiful-venus.glitch.me/api/user/data",
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                mode: "cors",
+            }
+        );
+        console.log("response", response);
+        const user = await response.json();
+        console.log("user", user);
+        const userRole = user.role;
+        console.log("User Role:", userRole);
 
-        const token = getCookie("SmartHouseToken");
-
-        if (token) {
-            // Decode the JWT token
-            const decodedToken = jwtDecode(token);
-            const userRole = decodedToken.user.role;
-            console.log("User Role:", userRole);
+        if (userRole) {
             navigate("/default-page");
         } else {
-            console.log("No token found");
+            console.log("No user found");
             navigate("/");
         }
     }
