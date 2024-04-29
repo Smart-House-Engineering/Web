@@ -60,13 +60,6 @@ export default function DefaultPage() {
     console.log("sensors", trueCount);
   }, [sensors]);
 
-  const logout = async () => {
-    navigate("/");
-  };
-  const addUser = async () => {
-    navigate("/add-user");
-  };
-
   return (
     <div className="boards-sensors">
       <div className="boards-side">

@@ -71,7 +71,7 @@ function AddUser() {
     }
 
     const token = getCookie("SmartHouseToken");
-    console.log("cookies", localStorage.getItem("SmartHouseToken"));
+    console.log("cookies", token);
     if (token) {
       console.log(" the Token:", token); // Should log the actual token if present
 
