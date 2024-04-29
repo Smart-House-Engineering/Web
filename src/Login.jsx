@@ -22,6 +22,7 @@ export default function Login() {
 
         let serverResponse = await fetch(
             "https://evanescent-beautiful-venus.glitch.me/auth/login",
+            // "http://localhost:5000/auth/login",
             {
                 method: "POST",
                 credentials: "include",
@@ -49,15 +50,16 @@ export default function Login() {
                     "Access-Control-Allow-Credentials": true,
                 },
                 mode: "cors",
+                cookies: localStorage.getItem("SmartHouseToken"),
             }
         );
-        console.log("response", response);
         const user = await response.json();
         console.log("user", user);
-        const userRole = user.role;
-        console.log("User Role:", userRole);
 
-        if (userRole) {
+        const { email, role, homeId } = user;
+        console.log("User Role:", role);
+
+        if (role) {
             navigate("/default-page");
         } else {
             console.log("No user found");
