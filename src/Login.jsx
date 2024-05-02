@@ -11,55 +11,59 @@ export default function Login() {
 
   const setUI = (key, value) => setI({ ...i, [key]: value }); //setUI sets UserInfo value and update i value.
 
-  function setStateFromForm(event) {
-    let element = event.target;
-    setUI(element.name, element.value);
-    console.log(i);
-  }
-
-  async function submit(event) {
-    // prevent submit from doing a hard page reload
-    event.preventDefault();
-
-    let serverResponse = await fetch(
-      "https://evanescent-beautiful-venus.glitch.me/auth/login",
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-        body: JSON.stringify(i),
-      }
-    );
-    console.log("the response", serverResponse);
-
-    if (!serverResponse.ok) {
-      throw new Error(`HTTP error! status: ${serverResponse.status}`);
+    function setStateFromForm(event) {
+        let element = event.target;
+        setUI(element.name, element.value);
+        console.log(i);
     }
 
-    const reponse = await serverResponse.json();
+    async function submit(event) {
+        event.preventDefault();
 
-    // Assuming you have stored your JWT token in localStorage or sessionStorage
+        let serverResponse = await fetch(
+            "https://evanescent-beautiful-venus.glitch.me/auth/login",
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                mode: "cors",
+                body: JSON.stringify(i),
+            }
+        );
 
-    const token = localStorage.getItem("SmartHouseToken"); // Retrieve the JWT token
-    console.log("the login token=", token);
+        console.log(serverResponse);
+        if (!serverResponse.ok) {
+            throw new Error(`HTTP error! status: ${serverResponse.status}`);
+        }
 
-    if (token) {
-      // Decode the JWT token
-      const decodedToken = jwt_decode(token);
+        let response = await fetch(
+            "https://evanescent-beautiful-venus.glitch.me/api/user/data",
+            {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Credentials": true,
+                },
+                mode: "cors",
+                cookies: localStorage.getItem("SmartHouseToken"),
+            }
+        );
+        const user = await response.json();
+        console.log("user", user);
 
-      // Access the user role from the decoded token
-      const userRole = decodedToken.user.role; // Assuming 'role' is the claim containing the user role
+        const { email, role, homeId } = user;
+        console.log("User Role:", role);
 
-      // Now you can use the user role in your React components as needed
-      console.log("User Role:", userRole);
-    } else {
-      console.log("No token found");
-    }
-    navigate("/default-page");
-  }
+        if (role) {
+            navigate("/default-page");
+        } else {
+            console.log("No user found");
+            navigate("/");
+        }
 
   //On submit
   //set it to the object and then fetch from api to confirm. If it is correct (console.log), move on to the next
