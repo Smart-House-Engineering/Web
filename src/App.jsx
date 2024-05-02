@@ -1,15 +1,12 @@
 import { Routes, Route, Router } from "react-router-dom";
 import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { useAutoKeys } from "react-easier";
 
-import "./App.css";
-import Login from "./Login";
-import DefaultPage from "./DefaultPage";
-import ExternalPage from "./ExternalPage";
+import "./style/App.css";
+import Login from "./pages/Login";
+import DefaultPage from "./pages/DefaultPage";
+import ExternalPage from "./pages/ExternalPage";
 import AddUser from "./pages/addUser";
-import Home from "./components/sidebar";
 import PageWithSidebar from "./components/Layout";
 
 function App() {

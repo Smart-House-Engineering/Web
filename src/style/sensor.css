@@ -1,0 +1,136 @@
+
+.caption {
+    margin-top: 10px;
+    cursor: pointer; /* Add this to indicate clickable */
+
+    width: 140px;
+    display: inline-block;
+    height: 110px;
+    
+    border-radius: 5px;
+    margin-right: 20px;
+    box-shadow:  1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+
+  }
+  
+  .on {
+    background-color: #C4E2FB; /* Choose your desired color for 'On' state */
+  }
+  
+  .off {
+    background-color: #fdfbf9; /* Choose your desired color for 'Off' state */
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 19px;
+    /*margin-left: 1px;*/
+    padding-top: 2px;
+    margin-right: 5px;
+    
+  }
+
+
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 13px;
+
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #3D7AAC;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #3D7AAC;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  .caption img{
+    width: 30%;
+    display: inline-block;
+
+  }
+
+  .Name-switch{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    
+  }
+
+  .keyName{
+    display: flex; /* Use flexbox */
+    font-family: 'Manjari', sans-serif;
+    padding-bottom: 8px;
+    font-weight: bold;
+    color: #213547;
+    
+    /*#3D7AAC;
+    #ac5000
+    #275275
+    #154a76
+    */
+  }
+
+
+  .s-name{
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 5px;}
+
+    .s-shell{
+      display: block;
+    }
+
+    .s-state{
+      display: flex;
+      padding-left: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: rgb(172, 80, 0);
+      /*color: #275275;
+      color: rgb(172, 80, 0);
+      */
+    }
+
+
+
+  
