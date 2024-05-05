@@ -1,0 +1,29 @@
+.not-found-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.not-found-heading {
+  font-size: 3rem;
+  color: #333;
+}
+
+.not-found-message {
+  font-size: 1.5rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.not-found-back-link {
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+.not-found-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.not-found-link:hover {
+  text-decoration: underline;
+}
