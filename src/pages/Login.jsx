@@ -58,14 +58,14 @@ export default function Login() {
     console.log("user", user);
 
     const { email, role, homeId } = user;
-    console.log("User Role:", role);
-
-    if (role === "OWNER") {
+    if (user) {
       setAuthUser(user);
       setIsLoggedIn(true);
-      navigate("/default-page");
-    } else if (role === "TENANT") {
-      navigate("/default-page");
+    }
+    if (role === "OWNER" || role === "TENANT") {
+      navigate("/default");
+    } else if (role === "EXTERNAL") {
+      navigate("/external");
     }
   }
   return (

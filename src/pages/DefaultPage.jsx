@@ -10,9 +10,11 @@ import { useAuth } from "../utils/authContext";
 export default function DefaultPage() {
   const navigate = useNavigate();
   const { isLoggedIn, authUser } = useAuth();
-  console.log("is logged in", isLoggedIn);
-  console.log("auth user", authUser);
-  useEffect(() => {}, [isLoggedIn, authUser]);
+  useEffect(() => {
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
+      navigate("/unauthorized");
+    }
+  }, [isLoggedIn, authUser]);
   const [sensors, setSensors] = useState([]);
   const [Val, setVal] = useState({
     idValue: 0,

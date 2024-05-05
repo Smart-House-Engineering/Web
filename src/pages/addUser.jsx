@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/addUser.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
 
 function AddUser() {
   const [email, setEmail] = useState("");
@@ -11,6 +13,14 @@ function AddUser() {
     role: "",
     response: "",
   });
+
+  const navigate = useNavigate();
+  const { isLoggedIn, authUser } = useAuth();
+  useEffect(() => {
+    if (authUser?.role !== "OWNER" || authUser?.role !== "OWNER") {
+      navigate("/unauthorized");
+    }
+  }, [isLoggedIn, authUser]);
 
   const validateEmail = (email) => {
     if (!email) {
@@ -84,7 +94,10 @@ function AddUser() {
       .then((response) => response.json())
       .then((res) => {
         console.log("Response:", res);
-        if (res.message == "TENANT account created!") {
+        if (
+          res.message == "TENANT account created!" ||
+          res.message == "EXTERNAL account created!"
+        ) {
           setEmail("");
           setRole("");
           setPassword("");
@@ -129,6 +142,7 @@ function AddUser() {
         <select name="role" value={role} onChange={handleRoleChange} required>
           <option value="">Select Role</option>
           <option value="TENANT">Tenant</option>
+          <option value="EXTERNAL">External</option>
         </select>
         {errors.response && <div className="error">{errors.response}</div>}
         <button type="submit">Add User</button>
