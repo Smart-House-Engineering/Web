@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/login.css";
+import { useAuth } from "../utils/authContext";
 
 export default function Login() {
+  const { setIsLoggedIn, setAuthUser } = useAuth();
   const navigate = useNavigate();
   const [i, setI] = useState({
     email: "",
@@ -56,17 +58,15 @@ export default function Login() {
     console.log("user", user);
 
     const { email, role, homeId } = user;
-    console.log("User Role:", role);
-
-    if (role) {
-      navigate("/default-page");
-    } else {
-      console.log("No user found");
-      navigate("/");
+    if (user) {
+      setAuthUser(user);
+      setIsLoggedIn(true);
     }
-
-    //On submit
-    //set it to the object and then fetch from api to confirm. If it is correct (console.log), move on to the next
+    if (role === "OWNER" || role === "TENANT") {
+      navigate("/default");
+    } else if (role === "EXTERNAL") {
+      navigate("/external");
+    }
   }
   return (
     <div className="hid">

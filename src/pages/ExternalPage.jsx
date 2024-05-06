@@ -1,11 +1,18 @@
 import { useState, useEffect } from "react";
 import "../style/external-page.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
 
 export default function ExternalPage() {
   const [sensors, setSensors] = useState({});
   const [filtered, setFilter] = useState({});
+  const { isLoggedIn, authUser, setIsLoggedIn, setAuthUser } = useAuth();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (authUser?.role !== "EXTERNAL") {
+      navigate("/unauthorized");
+    }
+  }, [isLoggedIn, authUser]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +53,8 @@ export default function ExternalPage() {
   console.log("filter", filtered);
 
   const logout = async () => {
+    setAuthUser(null);
+    setIsLoggedIn(false);
     navigate("/");
   };
 

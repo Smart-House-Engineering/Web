@@ -8,23 +8,30 @@ import DefaultPage from "./pages/DefaultPage";
 import ExternalPage from "./pages/ExternalPage";
 import AddUser from "./pages/addUser";
 import PageWithSidebar from "./components/Layout";
+import { AuthProvider } from "./utils/authContext";
+import Unauthorized from "./pages/unauthorize";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   // const [count, setCount] = useState(0)
-  useAutoKeys();
+  // useAutoKeys();
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route
-        path="/default-page"
-        element={<PageWithSidebar mainComponent={DefaultPage} />}
-      />
-      <Route
-        path="/add-user"
-        element={<PageWithSidebar mainComponent={AddUser} />}
-      />
-      <Route path="/external-page" element={<ExternalPage />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/default"
+          element={<PageWithSidebar mainComponent={DefaultPage} />}
+        />
+        <Route
+          path="/add-user"
+          element={<PageWithSidebar mainComponent={AddUser} />}
+        />
+        <Route path="/external" element={<ExternalPage />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

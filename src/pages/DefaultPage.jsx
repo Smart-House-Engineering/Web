@@ -4,9 +4,17 @@ import SideBoard from "../components/Sideboard";
 import { useNavigate } from "react-router-dom";
 import "../style/default-page.css";
 import "react-circular-progressbar/dist/styles.css";
+import { useAuth } from "../utils/authContext";
 //import jwt_decode from "jwt-decode";
 
 export default function DefaultPage() {
+  const navigate = useNavigate();
+  const { isLoggedIn, authUser } = useAuth();
+  useEffect(() => {
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
+      navigate("/unauthorized");
+    }
+  }, [isLoggedIn, authUser]);
   const [sensors, setSensors] = useState([]);
   const [Val, setVal] = useState({
     idValue: 0,
