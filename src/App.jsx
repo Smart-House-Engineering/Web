@@ -1,6 +1,6 @@
 import { Routes, Route, Router } from "react-router-dom";
-import React, { useState } from "react";
-import { useAutoKeys } from "react-easier";
+import { useState } from "react";
+//import { useAutoKeys } from "react-easier";
 
 import "./style/App.css";
 import Login from "./pages/Login";
