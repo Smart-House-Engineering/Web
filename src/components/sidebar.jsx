@@ -28,10 +28,16 @@ function Sidebar() {
         <p>Voice</p>
       </div>
       {authUser?.role === "OWNER" ? (
-        <div className="home-icon" onClick={() => navigate("/add-user")}>
-          <img src="/logged.svg" alt="Logout"></img>
-          <p> Add user</p>
-        </div>
+        <>
+          <div className="home-icon" onClick={() => navigate("/add-user")}>
+            <img src="/logged.svg" alt="Logout"></img>
+            <p> Add user</p>
+          </div>
+          <div className="home-icon" onClick={() => navigate("/delete-user")}>
+            <img src="/logged.svg" alt="Logout"></img>
+            <p> Delete user</p>
+          </div>
+        </>
       ) : null}
       <div className="home-icon" onClick={logout}>
         <img src="/logged.svg" alt="Logout"></img>
