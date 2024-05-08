@@ -1,4 +1,4 @@
-import { Routes, Route, Router } from "react-router-dom";
+import React, { Routes, Route, Router } from "react-router-dom";
 import { useState } from "react";
 //import { useAutoKeys } from "react-easier";
 

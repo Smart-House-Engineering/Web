@@ -2,6 +2,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../App";
+import Login from "./pages/Login";
+import DefaultPage from "./pages/DefaultPage";
+import ExternalPage from "./pages/ExternalPage";
+import AddUser from "./pages/addUser";
 import { AuthProvider } from "../utils/authContext";
 
 // Helper function to wrap App in necessary contexts

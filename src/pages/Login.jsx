@@ -17,7 +17,7 @@ export default function Login() {
   function setStateFromForm(event) {
     let element = event.target;
     setUI(element.name, element.value);
-    console.log(i);
+    //console.log(i);
   }
 
   async function submit(event) {
