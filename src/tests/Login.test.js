@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../utils/authContext"; // Ensure correct path
 import Login from "../pages/Login"; // Ensure correct path
+import { act } from "react";
 
 // Helper to render the component within the required providers
 const renderLogin = () => {
@@ -27,14 +28,15 @@ describe("Login Component", () => {
     expect(passwordInput.value).toBe("");
   });
 
-  test("should allow entering email and password", () => {
+  test("should allow entering email and password", async () => {
     renderLogin();
     const emailInput = screen.getByPlaceholderText("email");
     const passwordInput = screen.getByPlaceholderText(
       "Password (min 6 letters)"
     );
-    userEvent.type(emailInput, "test@example.com");
-    userEvent.type(passwordInput, "password");
+    await userEvent.type(emailInput, "test@example.com");
+    await userEvent.type(passwordInput, "password");
+
     expect(emailInput.value).toBe("test@example.com");
     expect(passwordInput.value).toBe("password");
   });
