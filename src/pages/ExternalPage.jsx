@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import "../style/external-page.css";
 import { useNavigate } from "react-router-dom";
