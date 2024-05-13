@@ -21,30 +21,31 @@ export default function DefaultPage() {
   });
 
   const setV = (key, value) => setVal({ ...Val, [key]: value });
+  
+  const fetchData = async () => {
+    const response = await fetch(
+      " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        cookies: localStorage.getItem("SmartHouseToken"),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.devices);
+      setSensors(data.devices);
+    } else {
+      console.error(`Failed to fetch data. Status: ${response.status}`);
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
-    const fetchData = async () => {
-      const response = await fetch(
-        " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-          },
-          cookies: localStorage.getItem("SmartHouseToken"),
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.devices);
-        setSensors(data.devices);
-      } else {
-        console.error(`Failed to fetch data. Status: ${response.status}`);
-      }
-    };
 
     if (isMounted) {
       fetchData();
@@ -67,6 +68,17 @@ export default function DefaultPage() {
     setV("idValue", (Val.idValue = trueCount));
     console.log("sensors", trueCount);
   }, [sensors]);
+
+  function fetchDataPeriodically() {
+    setInterval(() => {
+      fetchData();
+    }, 5000);
+  }
+  
+  useEffect(() => {
+    fetchData();
+    fetchDataPeriodically();
+  }, []);
 
   return (
     <div className="boards-sensors">
