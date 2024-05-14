@@ -4,7 +4,6 @@ import ProgressBar from "./ProgressBar";
 import "react-circular-progressbar/dist/styles.css";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
-
 export default function SideBoard(props) {
   let { Val, setV } = props;
 
@@ -113,11 +112,6 @@ export default function SideBoard(props) {
       </div>
 
       <ProgressBar {...{ Val, setV }} />
-     
-
-      
-
-      
     </div>
   );
 }
