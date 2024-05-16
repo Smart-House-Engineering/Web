@@ -7,49 +7,29 @@ import DefaultPage from "../pages/DefaultPage";
 import fetchMock from "jest-fetch-mock";
 import { act } from "react";
 
+jest.mock("../components/Sideboard", () => {
+    return () => <div data-testid="mock-sideboard">Mock SideBoard</div>;
+});
+
 const renderDefaultPage = () => {
     render(
         <AuthProvider>
-            <BrowserRouter initialEntries={["/"]}>
+            <BrowserRouter>
                 <DefaultPage />
             </BrowserRouter>
         </AuthProvider>
     );
 };
 
-const user = {
-    email: "test@example.com",
-    homeId: "myHome",
-    role: "OWNER",
-};
-
-const sensorsResponse = {
-    message: "Devices retrieved successfully",
-    devices: {
-        fan: false,
-        RFan: false,
-        motion: false,
-        buzzer: true,
-        relay: false,
-        door: 0,
-        window: 0,
-        yellowLed: 0,
-        gasSensor: 0,
-        photocell: 0,
-        soilSensor: 0,
-        steamSensor: 0,
-        whiteLed: false,
-        button1: false,
-        button2: false,
-        lights: false,
-    },
-};
-
 jest.mock("../utils/authContext", () => ({
     ...jest.requireActual("../utils/authContext"),
     useAuth: jest.fn(() => ({
         isLoggedIn: true,
-        authUser: user,
+        authUser: {
+            email: "test@example.com",
+            homeId: "myHome",
+            role: "OWNER",
+        },
     })),
 }));
 
@@ -60,9 +40,32 @@ describe("DefaultPage", () => {
 
     beforeEach(() => {
         fetchMock.resetMocks();
-        fetchMock.mockResponse(JSON.stringify(sensorsResponse), {
-            status: 200,
-        });
+        fetchMock.mockResponse(
+            JSON.stringify({
+                message: "Devices retrieved successfully",
+                devices: {
+                    fan: false,
+                    RFan: false,
+                    motion: false,
+                    buzzer: true,
+                    relay: false,
+                    door: 0,
+                    window: 0,
+                    yellowLed: 0,
+                    gasSensor: 0,
+                    photocell: 0,
+                    soilSensor: 0,
+                    steamSensor: 0,
+                    whiteLed: false,
+                    button1: false,
+                    button2: false,
+                    lights: false,
+                },
+            }),
+            {
+                status: 200,
+            }
+        );
     });
 
     afterEach(() => {
@@ -84,18 +87,17 @@ describe("DefaultPage", () => {
 
     test("should render sensors container", async () => {
         renderDefaultPage();
-
         await screen.findByTestId("sensors-container");
         expect(screen.getByTestId("sensors-container")).toBeInTheDocument();
     });
 
     test("should displays sensors correctly", async () => {
         renderDefaultPage();
-
         await screen.findByTestId("sensors-container");
-
-        expect(screen.getByText("door")).toBeInTheDocument();
-        expect(screen.getByText("window")).toBeInTheDocument();
-        expect(screen.getByText("lights")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText("door")).toBeInTheDocument();
+            expect(screen.getByText("window")).toBeInTheDocument();
+            expect(screen.getByText("lights")).toBeInTheDocument();
+        });
     });
 });
