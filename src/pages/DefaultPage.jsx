@@ -5,16 +5,10 @@ import { useNavigate } from "react-router-dom";
 import "../style/default-page.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useAuth } from "../utils/authContext";
-//import jwt_decode from "jwt-decode";
 
 export default function DefaultPage() {
   const navigate = useNavigate();
-  const { isLoggedIn, authUser } = useAuth();
-  useEffect(() => {
-    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
-      navigate("/unauthorized");
-    }
-  }, [isLoggedIn, authUser]);
+ const { isLoggedIn, authUser } = useAuth();
   const [sensors, setSensors] = useState([]);
   const [Val, setVal] = useState({
     idValue: 0,
@@ -22,11 +16,19 @@ export default function DefaultPage() {
 
   const setV = (key, value) => setVal({ ...Val, [key]: value });
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchData = async () => {
+
+
+
+  const checkUserRole = () => {
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
+      navigate("/unauthorized");
+    }
+  };
+
+  const fetchData = async () => {
+    try {
       const response = await fetch(
-        " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
+        "https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
         {
           method: "GET",
           credentials: "include",
@@ -39,22 +41,16 @@ export default function DefaultPage() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.devices);
         setSensors(data.devices);
       } else {
         console.error(`Failed to fetch data. Status: ${response.status}`);
       }
-    };
-
-    if (isMounted) {
-      fetchData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  };
 
-  useEffect(() => {
+  const updateTrueCount = () => {
     let trueCount = 0;
     for (const key in sensors) {
       if (sensors.hasOwnProperty(key)) {
@@ -63,10 +59,36 @@ export default function DefaultPage() {
         }
       }
     }
-    console;
     setV("idValue", (Val.idValue = trueCount));
     console.log("sensors", trueCount);
-  }, [sensors]);
+  };
+
+ 
+
+  useEffect(() => {
+
+    let isMounted = true;
+    checkUserRole();
+    fetchData();
+    updateTrueCount();
+
+    
+     return () => {
+      isMounted = false;
+    };
+
+  }, [isLoggedIn, authUser]); 
+
+  
+
+ useEffect(() => {
+
+    updateTrueCount();
+
+  }, [sensors])
+
+ 
+  
 
   return (
     <div className="boards-sensors">
