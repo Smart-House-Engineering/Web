@@ -35,6 +35,8 @@ export default function EmergencyMode() {
       }
     }
     fetchData();
+    const intervalId = setInterval(fetchData, 5000);
+    return () => clearInterval(intervalId);
   }, []); 
 
   
