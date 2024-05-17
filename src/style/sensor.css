@@ -114,7 +114,10 @@
   .s-name{
     font-size: 12px;
     margin-top: 5px;
-    padding-left: 5px;}
+    padding-left: 5px;
+    color: #213547;
+
+  }
 
     .s-shell{
       display: block;

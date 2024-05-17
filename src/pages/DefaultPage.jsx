@@ -5,57 +5,49 @@ import { useNavigate } from "react-router-dom";
 import "../style/default-page.css";
 import "react-circular-progressbar/dist/styles.css";
 import { useAuth } from "../utils/authContext";
-//import jwt_decode from "jwt-decode";
 
 export default function DefaultPage() {
   const navigate = useNavigate();
   const { isLoggedIn, authUser } = useAuth();
-  useEffect(() => {
-    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
-      navigate("/unauthorized");
-    }
-  }, [isLoggedIn, authUser]);
   const [sensors, setSensors] = useState([]);
   const [Val, setVal] = useState({
     idValue: 0,
   });
 
   const setV = (key, value) => setVal({ ...Val, [key]: value });
-  
-  const fetchData = async () => {
-    const response = await fetch(
-      " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-        cookies: localStorage.getItem("SmartHouseToken"),
-      }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.devices);
-      setSensors(data.devices);
-    } else {
-      console.error(`Failed to fetch data. Status: ${response.status}`);
+
+  const checkUserRole = () => {
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
+      navigate("/unauthorized");
     }
   };
 
-  useEffect(() => {
-    let isMounted = true;
-
-    if (isMounted) {
-      fetchData();
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+          cookies: localStorage.getItem("SmartHouseToken"),
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setSensors(data.devices);
+      } else {
+        console.error(`Failed to fetch data. Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  };
 
-  useEffect(() => {
+  const updateTrueCount = () => {
     let trueCount = 0;
     for (const key in sensors) {
       if (sensors.hasOwnProperty(key)) {
@@ -64,9 +56,23 @@ export default function DefaultPage() {
         }
       }
     }
-    console;
     setV("idValue", (Val.idValue = trueCount));
     console.log("sensors", trueCount);
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+    checkUserRole();
+    fetchData();
+    updateTrueCount();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isLoggedIn, authUser]);
+
+  useEffect(() => {
+    updateTrueCount();
   }, [sensors]);
 
   function fetchDataPeriodically() {
@@ -74,7 +80,7 @@ export default function DefaultPage() {
       fetchData();
     }, 5000);
   }
-  
+
   useEffect(() => {
     fetchData();
     fetchDataPeriodically();
