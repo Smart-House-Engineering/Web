@@ -8,16 +8,13 @@ import { useAuth } from "../utils/authContext";
 
 export default function DefaultPage() {
   const navigate = useNavigate();
- const { isLoggedIn, authUser } = useAuth();
+  const { isLoggedIn, authUser } = useAuth();
   const [sensors, setSensors] = useState([]);
   const [Val, setVal] = useState({
     idValue: 0,
   });
 
   const setV = (key, value) => setVal({ ...Val, [key]: value });
-
-
-
 
   const checkUserRole = () => {
     if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
@@ -63,32 +60,31 @@ export default function DefaultPage() {
     console.log("sensors", trueCount);
   };
 
- 
-
   useEffect(() => {
-
     let isMounted = true;
     checkUserRole();
     fetchData();
     updateTrueCount();
 
-    
-     return () => {
+    return () => {
       isMounted = false;
     };
+  }, [isLoggedIn, authUser]);
 
-  }, [isLoggedIn, authUser]); 
-
-  
-
- useEffect(() => {
-
+  useEffect(() => {
     updateTrueCount();
+  }, [sensors]);
 
-  }, [sensors])
+  function fetchDataPeriodically() {
+    setInterval(() => {
+      fetchData();
+    }, 5000);
+  }
 
- 
-  
+  useEffect(() => {
+    fetchData();
+    fetchDataPeriodically();
+  }, []);
 
   return (
     <div className="boards-sensors">
