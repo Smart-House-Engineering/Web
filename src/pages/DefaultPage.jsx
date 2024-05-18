@@ -78,7 +78,7 @@ const [Val, setVal] = useState({
       fetchData();
     }, 5000);
   }
-  
+
   useEffect(() => {
     fetchData();
     fetchDataPeriodically();
