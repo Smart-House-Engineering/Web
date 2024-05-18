@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../style/sensor.css";
 
 export default function Sensor(props) {
   let { keyName, value, Val, setV } = props;
   const [like, setLike] = useState(value);
+
+  useEffect(() => {
+    setLike(value);
+  }, [value]);
 
   const Switch = async () => {
     try {

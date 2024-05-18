@@ -1,4 +1,4 @@
-import "../style/default-page.css";
+//import "../style/default-page.css";
 import "../style/emergency.css";
 import { useState, useEffect } from "react";
 
@@ -77,12 +77,14 @@ export default function EmergencyMode() {
   };
 
     return(
-    <div className="home-icon">
+    <div className="emergency-con">
+    <div className="emergency-t">
     <label className="switch" checked={isToggled} onChange={handleToggle}>
     <input type="checkbox"  checked={isToggled} onChange={handleToggle} />
     <span className="slider round"></span>
     </label>
     <p>emergency mode</p>
+  </div>
   </div>
  )
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 import { useAuth } from "../utils/authContext";
-import EmergencyMode from "./emergencyMode";
+import EmergencyMode from "../pages/emergencyMode";
 
 
 function Sidebar() {
@@ -23,15 +23,25 @@ function Sidebar() {
         <img src="/home-2.svg" alt="Home or default page"></img>
         <p>Home</p>
       </div>
+      <div className="home-icon" onClick={() => navigate("/emergencyMode")}>
+        <img src="/modes.svg" alt="Emergency page"></img>
+        <p>Modes</p>
+      </div>
       
-      <EmergencyMode  />
 
-      
       {authUser?.role === "OWNER" ? (
+        
+        <>
         <div className="home-icon" onClick={() => navigate("/add-user")}>
           <img src="/add-user.svg" alt="Logout"></img>
           <p> Add user</p>
         </div>
+  
+          <div className="home-icon" onClick={() => navigate("/delete-user")}>
+            <img src="/delete-user.svg" alt="Logout"></img>
+            <p> Delete user</p>
+          </div>
+        </>
       ) : null}
       <div className="home-icon" onClick={logout}>
         <img src="/logged.svg" alt="Logout"></img>
