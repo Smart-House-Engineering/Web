@@ -8,97 +8,120 @@ import { useAuth } from "../utils/authContext";
 
 export default function DefaultPage() {
   const navigate = useNavigate();
- const { isLoggedIn, authUser } = useAuth();
+  const { isLoggedIn, authUser } = useAuth();
+  const [sensors, setSensors] = useState([]);
+  const [Val, setVal] = useState({
+    idValue: 0,
+  });
 
- useEffect(() => {
-  if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
-    navigate("/unauthorized");
-  }
-}, [isLoggedIn, authUser]);
-const [sensors, setSensors] = useState([]);
-const [Val, setVal] = useState({
-  idValue: 0,
-});
-  
+  const excludedSensors = ["RFan", "button1", "button2"];
+  const valueOnlySensors = ["soilSensor", "steamSensor", "gasSensor", "photocell"];
 
   const setV = (key, value) => setVal({ ...Val, [key]: value });
-  
+
   const fetchData = async () => {
-    const response = await fetch(
-      " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-        cookies: localStorage.getItem("SmartHouseToken"),
+    try {
+      const response = await fetch(
+        " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+          cookies: localStorage.getItem("SmartHouseToken"),
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.devices);
+        setSensors(data.devices);
+      } else {
+        console.error(`Failed to fetch data. Status: ${response.status}`);
       }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.devices);
-      setSensors(data.devices);
-    } else {
-      console.error(`Failed to fetch data. Status: ${response.status}`);
+    } catch (error) {
+      console.error('Error fetching data: ', error);
     }
   };
 
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted) {
-      fetchData();
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
+      navigate("/unauthorized");
     }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
-
-
-  
-  useEffect(() => {
-    let trueCount = 0;
-    for (const key in sensors) {
-      if (sensors.hasOwnProperty(key)) {
-        if (sensors[key] === true || sensors[key] === 1) {
-          trueCount++;
+    const updateTrueCount = () => {
+      let trueCount = 0;
+      for (const key in sensors) {
+        if (sensors.hasOwnProperty(key)) {
+          if (sensors[key] === true || sensors[key] === 1) {
+            trueCount++;
+          }
         }
       }
-    }
-    console;
-    setV("idValue", (Val.idValue = trueCount));
-    console.log("sensors", trueCount);
-  }, [sensors]);
+      setV("idValue", (Val.idValue = trueCount));
+      console.log("sensors", trueCount);
+    };
 
-  function fetchDataPeriodically() {
-    setInterval(() => {
+    if (isMounted) {
       fetchData();
-    }, 5000);
-  }
+      updateTrueCount();
+    }
 
-  useEffect(() => {
-    fetchData();
-    fetchDataPeriodically();
-  }, []);
+    const intervalId = setInterval(() => {
+      if (isMounted) {
+        fetchData();
+      }
+    }, 5000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
+
+  }, [isLoggedIn, authUser, sensors]);
+
+  const toggleableSensors = Object.entries(sensors).filter(
+    ([key]) => !excludedSensors.includes(key) && !valueOnlySensors.includes(key)
+  );
+  const displayOnlySensors = Object.entries(sensors).filter(([key]) =>
+    valueOnlySensors.includes(key)
+  );
 
   return (
     <div className="boards-sensors">
       <div className="boards-side">
         <div className="boards-container">
           <div className="sensors-con">
-            <div className="sensors">
-              {Object.entries(sensors).map(([key, value]) => (
-                <Sensor
-                  key={key}
-                  keyName={key}
-                  value={value}
-                  Val={Val}
-                  setV={setV}
-                />
-              ))}
+            <div className="toggleable-sensors">
+              <h3>Digital Sensors</h3>
+              <div className="sensors">
+                {toggleableSensors.map(([key, value]) => (
+                  <Sensor
+                    key={key}
+                    keyName={key}
+                    value={value}
+                    Val={Val}
+                    setV={setV}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="value-only-sensors">
+              <h3 className="section-title">Analog Sensors</h3>
+              <div className="sensors">
+                {displayOnlySensors.map(([key, value]) => (
+                  <Sensor
+                    key={key}
+                    keyName={key}
+                    value={value}
+                    Val={Val}
+                    setV={setV}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           {/*sideboard*/}
