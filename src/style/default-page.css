@@ -1,246 +1,191 @@
-@import url('https://fonts.googleapis.com/css?family=Manjari');
+@import url("https://fonts.googleapis.com/css?family=Manjari");
 
-
-body{
-    background-color: #F7F7F7;
-    
-
+body {
+  background-color: #f7f7f7;
 }
-#root{
-    width: 100% ;
-    padding: 0;
+#root {
+  width: 100%;
+  padding: 0;
 }
 
-.sidebar{
-    background-color: #ECECEC;
-        color: #3D7AAC !important;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        top: 0;
-        width: 150px !important;
-
+.sidebar {
+  background-color: #ececec;
+  color: #3d7aac !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  width: 150px !important;
 }
 
-.sidebar img{
-    width: 80%;
-    margin-top: 10px;
+.sidebar img {
+  width: 80%;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
-.home-icon{
-    margin-top: 15px;
+.home-icon {
+  margin-top: 15px;
 }
 
-
-.home-icon img{
-    width: 25%;
-    /*: #888888;*/
+.home-icon img {
+  width: 25%;
+  /*: #888888;*/
 }
 
-.home-icon p{
-    margin-top: 0;
-    font-family: 'Manjari', sans-serif;
-    color: #3D7AAC !important;
+.home-icon p {
+  margin-top: 0;
+  font-family: "Manjari", sans-serif;
+  color: #3d7aac;
+  cursor: pointer;
 }
 
-.boards-sensors{
-    display: block;
-    width: 1000px;
-    margin-left: 180px;
-    margin-top: 10px;
-    padding-left: 50px;
-
-
+.boards-sensors {
+  display: block;
+  width: 1000px;
+  margin-left: 180px;
+  margin-top: 10px;
+  padding-left: 50px;
 }
 
-.boards-container{
-    display: flex;
-
+.boards-container {
+  display: flex;
 }
 
-
-
-
-
-.boards{
-    background-color: #C4E2FB;
-    display: inline-block;
-    width: 630px;
-    top: 10px !important;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    height: 330px;
-    border-radius: 10px;
-
+.boards {
+  background-color: #c4e2fb;
+  display: inline-block;
+  width: 630px;
+  top: 10px !important;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  height: 330px;
+  border-radius: 10px;
 }
-
-
 
 /**/
-.side-board{
-    display: inline-block;
-    margin-left: 35px;
-    /*background-color: #C4E2FB;     position: fixed;
+.side-board {
+  display: inline-block;
+  margin-left: 35px;
+  /*background-color: #C4E2FB;     position: fixed;
 */
-    margin-right: 30px;
-    height: 340px;
-    top: 10px !important;
-    width: 300px;
-    font-family:'Manjari', sans-serif;;
+  margin-right: 30px;
+  height: 340px;
+  top: 10px !important;
+  width: 300px;
+  font-family: "Manjari", sans-serif;
 }
 
-
-.progress-css{
-    border-radius: 10px;
-    background-color: #e6f0f9;
-    border-radius: 10px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    height: 260px;
-
-
+.progress-css {
+  border-radius: 10px;
+  background-color: #e6f0f9;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  height: 260px;
 }
 
-.profile img{
-
+.profile img {
   padding-left: 10px;
   display: inline-block;
   width: 22%;
 }
 
-.user-pro{
-    display:inline-block ;
-    padding-top: 30px;
-    padding-right: 50px;
-    /*color: #3D7AAC;*/
-    color: #043b7f;
-    font-size: small;
-    
+.user-pro {
+  display: inline-block;
+  padding-top: 30px;
+  padding-right: 50px;
+  /*color: #3D7AAC;*/
+  color: #043b7f;
+  font-size: small;
 }
-.progress-con
-{
-    margin-left: 70px;
-    margin-top: 30px;
+.progress-con {
+  margin-left: 70px;
+  margin-top: 30px;
 }
 
-.bar-title{
-color: #3D7AAC;
-padding-top: 20px;
+.bar-title {
+  color: #3d7aac;
+  padding-top: 20px;
 }
 
+.profile {
+  border-radius: 10px;
+  /*background-color: #C4E2FB;*/
+  color: #3d7aac;
 
-
-.profile{
-    border-radius: 10px;
-    /*background-color: #C4E2FB;*/
-    color: #3D7AAC;
-
-    background-color: #e6f0f9;
-    border-radius: 10px;
-    margin-top: 2px;
-    margin-bottom: 10px;
-    height: 100px;
-    box-shadow:  1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-
-
-
+  background-color: #e6f0f9;
+  border-radius: 10px;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  height: 100px;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
 }
 .profile h2 {
-    font-size: 24px;
-    padding-top: 20px ;
-    padding-right: 35%;
-    margin-bottom: 0px;
+  font-size: 24px;
+  padding-top: 20px;
+  padding-right: 35%;
+  margin-bottom: 0px;
 }
 
 .profile h3 {
-    font-size: 18px;
-    margin-bottom: 0px;
-    margin-top: 0px;
-    padding-right: 35%;
+  font-size: 18px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-right: 35%;
 }
 
 .profile div {
-    text-align:right;
-    margin-top: -90px;
-    color: #3D7AAC;
-
+  text-align: right;
+  margin-top: -90px;
+  color: #3d7aac;
 }
 
 .profile h1 {
-    font-size: 40px;
-    margin-bottom: 0px;
-    color: #3D7AAC;
-
+  font-size: 40px;
+  margin-bottom: 0px;
+  color: #3d7aac;
 }
 
 .profile div p {
-    margin: 0px 0;
-    font-size: 16px;
-    padding-right: 2px;
-    color: #3D7AAC;
-
+  margin: 0px 0;
+  font-size: 16px;
+  padding-right: 2px;
+  color: #3d7aac;
+}
+.membered {
+  /* background-color: #fdfbf9;*/
+  background-color: #e6f0f9;
+  border-radius: 10px;
+  height: 100px;
+  margin-top: 20px;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+}
+.member-title {
+  color: #3d7aac;
+  font-size: small;
+  display: block;
+  padding-top: 5px;
+  position: relative;
 }
 
-
-
-/*background-color: #dbebf8;*/
-
-/*.profile{
-    background-color: #e6f0f9;
-
-    border-radius: 10px;
-    height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    box-shadow:  1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-
-}*/
-
-
-.membered{
-   /* background-color: #fdfbf9;*/
-   background-color: #e6f0f9;;
-    border-radius: 10px;
-    height: 100px;
-    margin-top: 20px;
-    box-shadow:  1px 1px 4px 1px rgba(0, 0, 0, 0.2);
-
-}
-.member-title{
-    color: #3D7AAC;
-    font-size: small;
-    display: block;
-    padding-top: 5px;
-    position: relative;
-
+.member-pic {
+  display: block;
+  padding-top: 8px;
 }
 
-.member-pic{
-    display: block;
-    padding-top: 8px;
-
-
+.member-pic img {
+  padding-left: 10px;
+  display: inline-block;
+  width: 20%;
+}
+.sensors-con {
+  display: block;
 }
 
-.member-pic img{
-
-    padding-left: 10px;
-    display: inline-block;
-    width: 20%;
-  }
-.sensors-con{
-    display: block;
+.sensors {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 10px;
+  bottom: 10px;
 }
-
-.sensors{
-
-
-display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
-row-gap: 10px;
-bottom: 10px;
-
-}
-

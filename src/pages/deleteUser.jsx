@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "../style/deleteUser.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
 
 function DeleteUser() {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const { isLoggedIn, authUser } = useAuth();
 
   useEffect(() => {
-    // const token = getCookie("SmartHouseToken");
-    // console.log("token ",token)
+    if (authUser?.role !== "OWNER" || authUser?.role !== "OWNER") {
+      navigate("/unauthorized");
+    }
     const fetchAllUsers = async () => {
       const response = await fetch(
         "https://evanescent-beautiful-venus.glitch.me/api/user/allMembers/",
@@ -18,20 +23,22 @@ function DeleteUser() {
             "Access-Control-Allow-Credentials": true,
           },
           cookies: localStorage.getItem("SmartHouseToken"),
-        });
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
       } else {
         console.error(`Error fetching users:", ${response.status}`);
       }
-    }
+    };
     fetchAllUsers();
   }, []);
 
-
   const deleteUser = async (deleteUserEmail) => {
-    const confirmation = window.confirm(`Are you sure you want to delete user "${deleteUserEmail}" ?`);
+    const confirmation = window.confirm(
+      `Are you sure you want to delete user "${deleteUserEmail}" ?`
+    );
     if (confirmation) {
       const response = await fetch(
         "https://evanescent-beautiful-venus.glitch.me/api/owner/deleteUser/",
@@ -42,7 +49,8 @@ function DeleteUser() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ deleteUserEmail }),
-        });
+        }
+      );
       if (response.ok) {
         const res = await response.json();
         console.log(res);
@@ -57,7 +65,7 @@ function DeleteUser() {
     } else {
       console.log("Deletion cancelled.");
     }
-  }
+  };
 
   return (
     <div className="container">

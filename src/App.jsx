@@ -30,12 +30,12 @@ function App() {
           element={<PageWithSidebar mainComponent={AddUser} />}
         />
         <Route
-        path="/delete-user"
-        element={<PageWithSidebar mainComponent={DeleteUser} />}
+          path="/delete-user"
+          element={<PageWithSidebar mainComponent={DeleteUser} />}
         />
         <Route
-        path="/emergencyMode"
-        element={<PageWithSidebar mainComponent={EmergencyMode} />}
+          path="/emergency"
+          element={<PageWithSidebar mainComponent={EmergencyMode} />}
         />
         <Route path="/external" element={<ExternalPage />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

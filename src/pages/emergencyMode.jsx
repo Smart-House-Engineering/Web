@@ -1,15 +1,18 @@
 //import "../style/default-page.css";
+import { useNavigate } from "react-router-dom";
 import "../style/emergency.css";
 import { useState, useEffect } from "react";
-
-
-
+import { useAuth } from "../utils/authContext";
 
 export default function EmergencyMode() {
-
   const [isToggled, setIsToggled] = useState(false);
+  const navigate = useNavigate();
+  const { isLoggedIn, authUser } = useAuth();
 
   useEffect(() => {
+    if (authUser?.role !== "OWNER" || authUser?.role !== "OWNER") {
+      navigate("/unauthorized");
+    }
     async function fetchData() {
       try {
         let response = await fetch(
@@ -28,7 +31,6 @@ export default function EmergencyMode() {
         console.log("response", data.modes.emergency);
         if (data.modes.emergency === true) {
           setIsToggled(true);
-         
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,11 +39,8 @@ export default function EmergencyMode() {
     fetchData();
     const intervalId = setInterval(fetchData, 5000);
     return () => clearInterval(intervalId);
-  }, []); 
+  }, [isLoggedIn, authUser]);
 
-  
-  
-  
   const handleToggle = async () => {
     try {
       // Toggle isToggled state
@@ -59,12 +58,11 @@ export default function EmergencyMode() {
             "Access-Control-Allow-Credentials": true,
           },
           cookies: localStorage.getItem("SmartHouseToken"),
-          body: JSON.stringify({ updatedModes: { emergency: updatedIsToggled } }), // Toggle the like state
+          body: JSON.stringify({
+            updatedModes: { emergency: updatedIsToggled },
+          }), // Toggle the like state
         }
       );
-
-
-
 
       if (!serverResponse.ok) {
         throw new Error(`HTTP error! status: ${serverResponse.status}`);
@@ -78,17 +76,15 @@ export default function EmergencyMode() {
     }
   };
 
-    return(
+  return (
     <div className="emergency-con">
-    <div className="emergency-t">
-    <label className="switch" checked={isToggled} onChange={handleToggle}>
-    <input type="checkbox"  checked={isToggled} onChange={handleToggle} />
-    <span className="slider round"></span>
-    </label>
-    <p>emergency mode</p>
-  </div>
-  </div>
- )
-
-
+      <div className="emergency-t">
+        <label className="switch" checked={isToggled} onChange={handleToggle}>
+          <input type="checkbox" checked={isToggled} onChange={handleToggle} />
+          <span className="slider round"></span>
+        </label>
+        <p>emergency mode</p>
+      </div>
+    </div>
+  );
 }
