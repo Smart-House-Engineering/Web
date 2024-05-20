@@ -9,6 +9,7 @@ import { useAuth } from "../utils/authContext";
 export default function DefaultPage() {
     const navigate = useNavigate();
     const { isLoggedIn, authUser } = useAuth();
+
     useEffect(() => {
         if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
             navigate("/unauthorized");
@@ -23,7 +24,7 @@ export default function DefaultPage() {
 
     const fetchData = async () => {
         const response = await fetch(
-            "https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
+            " https://evanescent-beautiful-venus.glitch.me/api/modes/defaultMode",
             {
                 method: "GET",
                 credentials: "include",
@@ -34,7 +35,6 @@ export default function DefaultPage() {
                 cookies: localStorage.getItem("SmartHouseToken"),
             }
         );
-
         if (response.ok) {
             const data = await response.json();
             console.log(data.devices);

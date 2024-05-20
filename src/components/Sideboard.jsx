@@ -113,10 +113,6 @@ export default function SideBoard(props) {
             </div>
 
             <ProgressBar {...{ Val, setV }} />
-
-            <div className="membered">
-                <div className="member-title">Members</div>
-            </div>
         </div>
     );
 }

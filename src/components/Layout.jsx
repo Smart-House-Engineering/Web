@@ -1,5 +1,6 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
+import { useState } from "react";
 
 function PageWithSidebar({ mainComponent: MainComponent }) {
     return (
