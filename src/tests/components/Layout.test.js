@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import PageWithSidebar from "../../components/Layout";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/sidebar";
 import "@testing-library/jest-dom";
 
 jest.mock("../../components/Sidebar", () => () => (

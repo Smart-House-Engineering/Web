@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/sidebar";
 import { AuthProvider } from "../../utils/authContext";
 import "@testing-library/jest-dom";
 

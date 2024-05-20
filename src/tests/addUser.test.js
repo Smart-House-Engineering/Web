@@ -49,7 +49,7 @@ describe("AddUser", () => {
         ).toBeInTheDocument();
     });
 
-    it("submits form with valid data", async () => {
+    test("submits form with valid data", async () => {
         renderAddUser();
 
         const mockResponse = { message: "TENANT account created!" };
