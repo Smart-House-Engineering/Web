@@ -56,7 +56,7 @@ export default function DefaultPage() {
       let trueCount = 0;
       for (const key in sensors) {
         if (sensors.hasOwnProperty(key)) {
-          if (sensors[key] === true || sensors[key] === 1) {
+          if (sensors[key] === true || sensors[key] > 0) {
             trueCount++;
           }
         }

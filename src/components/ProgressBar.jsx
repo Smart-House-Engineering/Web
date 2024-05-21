@@ -12,7 +12,7 @@ export default function ProgressBar(props) {
       <div className="progress-con" style={{ width: 150, height: 150 }}>
         <CircularProgressbar
           value={percentage}
-          maxValue={16}
+          maxValue={12}
           text={`${percentage} devices`}
           styles={buildStyles({
             // Rotation of path and trail, in number of turns (0-1)
