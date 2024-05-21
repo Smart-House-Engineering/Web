@@ -7,6 +7,10 @@ import DefaultPage from "../pages/DefaultPage"
 import fetchMock from "jest-fetch-mock"
 import { act } from "react"
 
+jest.mock("../components/Sensor", () => {
+  return ({ keyName }) => <div>{keyName}</div>
+})
+
 jest.mock("../components/Sideboard", () => {
   return () => <div data-testid='mock-sideboard'>Mock SideBoard</div>
 })
@@ -77,27 +81,49 @@ describe("DefaultPage", () => {
   })
 
   test("DefaultPage should be loaded, with response ok", async () => {
+    let useEffectSpy
+    const useEffect = jest.spyOn(React, "useEffect")
+    useEffect.mockImplementation(f => (useEffectSpy = f))
+
     renderDefaultPage()
-    await waitFor(() =>
-      expect(
-        document.getElementsByClassName("boards-sensors")[0]
-      ).toBeInTheDocument()
-    )
+    useEffectSpy()
+
+    await waitFor(() => {
+      expect(screen.getByTestId("sensors-container")).toBeInTheDocument()
+    })
+
+    useEffect.mockRestore()
   })
 
   test("should render sensors container", async () => {
+    let useEffectSpy
+    const useEffect = jest.spyOn(React, "useEffect")
+    useEffect.mockImplementation(f => (useEffectSpy = f))
+
     renderDefaultPage()
+    useEffectSpy()
+
     await screen.findByTestId("sensors-container")
     expect(screen.getByTestId("sensors-container")).toBeInTheDocument()
+
+    useEffect.mockRestore()
   })
 
   test("should displays sensors correctly", async () => {
+    let useEffectSpy
+    const useEffect = jest.spyOn(React, "useEffect")
+    useEffect.mockImplementation(f => (useEffectSpy = f))
+
     renderDefaultPage()
+    useEffectSpy()
+
     await screen.findByTestId("sensors-container")
     await waitFor(() => {
       expect(screen.getByText("door")).toBeInTheDocument()
       expect(screen.getByText("window")).toBeInTheDocument()
       expect(screen.getByText("lights")).toBeInTheDocument()
     })
+
+    useEffect.mockRestore()
   })
 })

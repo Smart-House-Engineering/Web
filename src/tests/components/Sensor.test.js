@@ -1,4 +1,4 @@
-import React from "react"
+import React, { act } from "react"
 import { render, fireEvent, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import Sensor from "../../components/Sensor"
@@ -31,7 +31,7 @@ describe("Sensor component", () => {
 
     const { getByText, getByTestId } = render(<Sensor {...props} />)
 
-    expect(getByText("Closed")).toBeInTheDocument()
+    expect(getByText("Status: Closed")).toBeInTheDocument()
     expect(getByTestId("door-switch")).not.toBeChecked()
   })
 
@@ -62,7 +62,7 @@ describe("Sensor component", () => {
 
     const { getByText } = render(<Sensor {...props} />)
 
-    expect(getByText("Closed")).toBeInTheDocument()
+    expect(getByText("Status: Closed")).toBeInTheDocument()
   })
 
   test("displays correct state when clicked", () => {
