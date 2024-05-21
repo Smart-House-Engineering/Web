@@ -62,38 +62,35 @@ export default function Sensor(props) {
         }
     };
 
-    const displayValue =
-        keyName === "door" || keyName === "window"
-            ? like
-                ? "Open"
-                : "Closed"
-            : like
-            ? "On"
-            : "Off";
+  const isValueSensor = ["soilSensor", "steamSensor", "gasSensor", "photocell"].includes(keyName);
+  const displayValue =
+    keyName === "door" || keyName === "window"
+      ? like
+        ? "Status: Open"
+        : "Status: Closed"
+      : isValueSensor
+        ? `Value: ${value}`
+        : like
+          ? "Status: On"
+          : "Status: Off";
 
-    return (
-        <div className={`caption ${like ? "on" : "off"}`} onClick={Switch}>
-            <div className="Name-switch">
-                <div className="keyName">
-                    <div className="s-name">{keyName}</div>
-                </div>
-                <label className="switch">
-                    <input
-                        type="checkbox"
-                        checked={like}
-                        onChange={Switch}
-                        data-testid="door-switch"
-                    />
-                    <span className="slider round"></span>
-                </label>
-            </div>
-            <img
-                src={`/${keyName.toLowerCase()}.svg`}
-                alt={`${keyName} icon`}
-            ></img>
-            <div className="s-shell">
-                <div className="s-state">{displayValue}</div>
-            </div>
+  return (
+    <div className={`caption ${like ? "on" : "off"}`} onClick={isValueSensor ? null : Switch}>
+      <div className="Name-switch">
+        <div className="keyName">
+          <div className="s-name">{keyName}</div>
         </div>
-    );
+        {!isValueSensor && (
+          <label className="switch">
+            <input type="checkbox" checked={like} onChange={Switch} data-testid="door-switch"/>
+            <span className="slider round"></span>
+          </label>
+        )}
+      </div>
+      <img src={`/${keyName.toLowerCase()}.svg`} alt={`${keyName} icon`}></img>
+      <div className="s-shell">
+        <div className="s-state">{displayValue}</div>
+      </div>
+    </div>
+  );
 }
