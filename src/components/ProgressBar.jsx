@@ -1,15 +1,15 @@
-import "../style/default-page.css";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import "../style/default-page.css"
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
+import "react-circular-progressbar/dist/styles.css"
 
 export default function ProgressBar(props) {
-  let { Val, setV } = props;
-  const percentage = Val.idValue;
+  let { Val, setV } = props
+  const percentage = Val.idValue
 
   return (
-    <div className="progress-css">
-      <div className="bar-title">CURRENTLY ACTIVE</div>
-      <div className="progress-con" style={{ width: 150, height: 150 }}>
+    <div className='progress-css'>
+      <div className='bar-title'>CURRENTLY ACTIVE</div>
+      <div className='progress-con' style={{ width: 150, height: 150 }}>
         <CircularProgressbar
           value={percentage}
           maxValue={12}
@@ -40,5 +40,5 @@ export default function ProgressBar(props) {
         />
       </div>
     </div>
-  );
+  )
 }

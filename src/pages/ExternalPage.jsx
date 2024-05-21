@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
-import "../style/external-page.css";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../utils/authContext";
+import { useState, useEffect } from "react"
+import "../style/external-page.css"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../utils/authContext"
 
 export default function ExternalPage() {
-  const [sensors, setSensors] = useState({});
-  const [filtered, setFilter] = useState({});
-  const { isLoggedIn, authUser, setIsLoggedIn, setAuthUser } = useAuth();
-  const navigate = useNavigate();
+  const [sensors, setSensors] = useState({})
+  const [filtered, setFilter] = useState({})
+  const { isLoggedIn, authUser, setIsLoggedIn, setAuthUser } = useAuth()
+  const navigate = useNavigate()
   useEffect(() => {
     if (authUser?.role !== "EXTERNAL") {
-      navigate("/unauthorized");
+      navigate("/unauthorized")
     }
-  }, [isLoggedIn, authUser]);
+  }, [isLoggedIn, authUser])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,66 +27,66 @@ export default function ExternalPage() {
           },
           cookies: localStorage.getItem("SmartHouseToken"),
         }
-      );
+      )
       if (response.ok) {
-        const data = await response.json();
-        console.log(data.devices);
-        setSensors(data.devices);
+        const data = await response.json()
+        console.log(data.devices)
+        setSensors(data.devices)
       } else {
-        console.error(`Failed to fetch data. Status: ${response.status}`);
+        console.error(`Failed to fetch data. Status: ${response.status}`)
       }
-    };
-    fetchData();
-  }, []);
+    }
+    fetchData()
+  }, [])
 
   useEffect(() => {
     let filteredObj = Object.fromEntries(
       Object.entries(sensors).filter(
         ([key, value]) => value !== false && value !== 0
       )
-    );
-    console.log(filteredObj);
-    setFilter(filteredObj);
-  }, [sensors]);
+    )
+    console.log(filteredObj)
+    setFilter(filteredObj)
+  }, [sensors])
 
-  console.log("sensors", sensors);
-  console.log("filter", filtered);
+  console.log("sensors", sensors)
+  console.log("filter", filtered)
 
   const logout = async () => {
-    setAuthUser(null);
-    setIsLoggedIn(false);
-    navigate("/");
-  };
+    setAuthUser(null)
+    setIsLoggedIn(false)
+    navigate("/")
+  }
 
   return (
-    <div className="external-con">
-      <div className="ex-con">
-        <div className="external-units">
-          <div className="eazy-logo">
-            <img src="/SEA-logo.png" alt="Logo of the app"></img>
+    <div className='external-con'>
+      <div className='ex-con'>
+        <div className='external-units'>
+          <div className='eazy-logo'>
+            <img src='/SEA-logo.png' alt='Logo of the app'></img>
             <h3> staff view</h3>
           </div>
           <h4> Currently active devices</h4>
           {Object.keys(filtered).length > 0 ? (
-            <div className="active-sensors">
-              {Object.keys(filtered).map((key) => (
-                <div className="unit" key={key}>
+            <div className='active-sensors'>
+              {Object.keys(filtered).map(key => (
+                <div className='unit' key={key}>
                   {key}
                 </div>
               ))}
             </div>
           ) : (
-            <div className="no-active-devices">
+            <div className='no-active-devices'>
               <p>No active devices</p>
             </div>
           )}
 
-          <div className="log" onClick={logout}>
-            <img src="/logged.svg" alt="logout icon"></img>
+          <div className='log' onClick={logout}>
+            <img src='/logged.svg' alt='logout icon'></img>
             <p>Logout</p>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

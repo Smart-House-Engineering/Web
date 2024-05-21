@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import "../style/deleteUser.css";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../utils/authContext";
+import React, { useState, useEffect } from "react"
+import "../style/deleteUser.css"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../utils/authContext"
 
 function DeleteUser() {
-  const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
-  const { isLoggedIn, authUser } = useAuth();
+  const [users, setUsers] = useState([])
+  const navigate = useNavigate()
+  const { isLoggedIn, authUser } = useAuth()
 
   useEffect(() => {
     if (authUser?.role !== "OWNER" || authUser?.role !== "OWNER") {
-      navigate("/unauthorized");
+      navigate("/unauthorized")
     }
     const fetchAllUsers = async () => {
       const response = await fetch(
@@ -24,21 +24,21 @@ function DeleteUser() {
           },
           cookies: localStorage.getItem("SmartHouseToken"),
         }
-      );
+      )
       if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
+        const data = await response.json()
+        setUsers(data)
       } else {
-        console.error(`Error fetching users:", ${response.status}`);
+        console.error(`Error fetching users:", ${response.status}`)
       }
-    };
-    fetchAllUsers();
-  }, []);
+    }
+    fetchAllUsers()
+  }, [])
 
-  const deleteUser = async (deleteUserEmail) => {
+  const deleteUser = async deleteUserEmail => {
     const confirmation = window.confirm(
       `Are you sure you want to delete user "${deleteUserEmail}" ?`
-    );
+    )
     if (confirmation) {
       const response = await fetch(
         "https://evanescent-beautiful-venus.glitch.me/api/owner/deleteUser/",
@@ -50,28 +50,28 @@ function DeleteUser() {
           },
           body: JSON.stringify({ deleteUserEmail }),
         }
-      );
+      )
       if (response.ok) {
-        const res = await response.json();
-        console.log(res);
+        const res = await response.json()
+        console.log(res)
         if (res.message === "User deleted successfully!") {
-          setUsers(users.filter((user) => user.email !== deleteUserEmail));
+          setUsers(users.filter(user => user.email !== deleteUserEmail))
         } else {
-          console.error("Error deleting user:", res.message);
+          console.error("Error deleting user:", res.message)
         }
       } else {
-        console.error(`Error fetching users:", ${response.status}`);
+        console.error(`Error fetching users:", ${response.status}`)
       }
     } else {
-      console.log("Deletion cancelled.");
+      console.log("Deletion cancelled.")
     }
-  };
+  }
 
   return (
-    <div className="container">
-      <img src="/SEA-logo.png" alt="Logo of the app" />
+    <div className='container'>
+      <img src='/SEA-logo.png' alt='Logo of the app' />
       <h2>Want to delete a User?</h2>
-      <table className="user-table">
+      <table className='user-table'>
         <thead>
           <tr>
             <th>#</th>
@@ -94,7 +94,7 @@ function DeleteUser() {
         </tbody>
       </table>
     </div>
-  );
+  )
 }
 
-export default DeleteUser;
+export default DeleteUser
