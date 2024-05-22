@@ -10,7 +10,7 @@ export default function EmergencyMode() {
   const { isLoggedIn, authUser } = useAuth()
 
   useEffect(() => {
-    if (authUser?.role !== "OWNER" || authUser?.role !== "OWNER") {
+    if (authUser?.role !== "OWNER" && authUser?.role !== "TENANT") {
       navigate("/unauthorized")
     }
     async function fetchData() {
