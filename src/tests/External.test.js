@@ -1,71 +1,110 @@
-import React from "react";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import ExternalPage from "../pages/ExternalPage"; // Adjust the import path as needed
-import { useAuth } from "../utils/authContext"; // Adjust the import path as needed
+// ExternalPage.test.js
 
-// Mocking necessary dependencies
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useAuth } from "../utils/authContext";
+import ExternalPage from "../pages/ExternalPage";
+
+// Mock the useAuth hook
 jest.mock("../utils/authContext", () => ({
   useAuth: jest.fn(),
 }));
-jest.mock("react-router-dom", () => ({
-  useNavigate: jest.fn(),
-}));
 
+// Mock the fetch call
 global.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
-    json: () => Promise.resolve({ devices: { sensor1: true, sensor2: false } }),
+    json: () =>
+      Promise.resolve({
+        devices: { sensor1: true, sensor2: false, sensor3: 1 },
+      }),
   })
 );
 
-describe("ExternalPage Component", () => {
+describe("ExternalPage", () => {
   const mockNavigate = jest.fn();
   const mockSetAuthUser = jest.fn();
   const mockSetIsLoggedIn = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
-    useAuth.mockImplementation(() => ({
+    useAuth.mockReturnValue({
       isLoggedIn: true,
       authUser: { role: "EXTERNAL" },
       setIsLoggedIn: mockSetIsLoggedIn,
       setAuthUser: mockSetAuthUser,
-    }));
-    require("react-router-dom").useNavigate.mockImplementation(
-      () => mockNavigate
-    );
+    });
   });
 
-  test("redirects unauthorized users", async () => {
-    useAuth.mockImplementation(() => ({
+  it("renders correctly for authorized users", async () => {
+    render(
+      <Router>
+        <ExternalPage />
+      </Router>
+    );
+
+    expect(screen.getByText("staff view")).toBeInTheDocument();
+    expect(screen.getByText("Currently active devices")).toBeInTheDocument();
+
+    await waitFor(() =>
+      expect(screen.getByText("sensor1")).toBeInTheDocument()
+    );
+    expect(screen.queryByText("sensor2")).not.toBeInTheDocument();
+    expect(screen.getByText("sensor3")).toBeInTheDocument();
+  });
+
+  it("redirects unauthorized users", async () => {
+    useAuth.mockReturnValueOnce({
       isLoggedIn: true,
       authUser: { role: "USER" },
-      setIsLoggedIn: jest.fn(),
-      setAuthUser: jest.fn(),
-    }));
+      setIsLoggedIn: mockSetIsLoggedIn,
+      setAuthUser: mockSetAuthUser,
+    });
 
-    render(<ExternalPage />, { wrapper: BrowserRouter });
+    render(
+      <Router>
+        <ExternalPage />
+      </Router>
+    );
+
     await waitFor(() =>
       expect(mockNavigate).toHaveBeenCalledWith("/unauthorized")
     );
   });
 
-  test("fetches data on mount and renders active sensors", async () => {
-    render(<ExternalPage />, { wrapper: BrowserRouter });
-    await waitFor(() => expect(fetch).toHaveBeenCalled());
-    expect(screen.getByText("sensor1")).toBeInTheDocument();
-    expect(screen.queryByText("sensor2")).not.toBeInTheDocument(); // sensor2 should not render since it's false
+  it("handles logout correctly", async () => {
+    render(
+      <Router>
+        <ExternalPage />
+      </Router>
+    );
+
+    screen.getByText("Logout").click();
+
+    expect(mockSetAuthUser).toHaveBeenCalledWith(null);
+    expect(mockSetIsLoggedIn).toHaveBeenCalledWith(false);
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
   });
 
-  test("handles logout", async () => {
-    render(<ExternalPage />, { wrapper: BrowserRouter });
-    const logoutButton = screen.getByText("Logout");
-    fireEvent.click(logoutButton);
-    await waitFor(() => {
-      expect(mockSetAuthUser).toHaveBeenCalledWith(null);
-      expect(mockSetIsLoggedIn).toHaveBeenCalledWith(false);
-      expect(mockNavigate).toHaveBeenCalledWith("/");
-    });
+  it("shows no active devices message when there are no active devices", async () => {
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        json: () =>
+          Promise.resolve({ devices: { sensor1: false, sensor2: 0 } }),
+      })
+    );
+
+    render(
+      <Router>
+        <ExternalPage />
+      </Router>
+    );
+
+    await waitFor(() =>
+      expect(screen.getByText("No active devices")).toBeInTheDocument()
+    );
   });
 });
